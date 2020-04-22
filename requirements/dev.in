@@ -1,0 +1,7 @@
+-r main.txt
+black
+flake8
+jupyter
+litecli
+pip-tools
+ptpython
