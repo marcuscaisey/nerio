@@ -16,6 +16,7 @@ click==7.1.1              # via black, litecli, pip-tools
 configobj==5.0.6          # via cli-helpers, litecli
 decorator==4.4.2          # via ipython, traitlets
 defusedxml==0.6.0         # via nbconvert
+django-widget-tweaks==1.4.8  # via -r main.txt
 django==3.0.5             # via -r main.txt
 entrypoints==0.3          # via flake8, nbconvert
 flake8==3.7.9             # via -r dev.in
