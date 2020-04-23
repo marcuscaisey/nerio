@@ -1,0 +1,16 @@
+{
+  "name": "styles",
+  "version": "1.0.0",
+  "description": "",
+  "main": "styles.scss",
+  "scripts": {
+    "build": "sass --no-source-map --style=compressed styles.scss ../static/css/styles.min.css",
+    "watch": "npm run build -- --watch"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "bulma": "^0.8.2",
+    "node-sass": "^4.13.1"
+  }
+}
