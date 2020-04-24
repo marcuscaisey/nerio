@@ -26,8 +26,9 @@ class Url(models.Model):
     visits = models.PositiveIntegerField(default=0)
 
     def save(self, *args, **kwargs):
-        self.normalise_target()
-        self.update_title()
+        if self.pk is None:
+            self.normalise_target()
+            self.set_title()
         super().save(*args, **kwargs)
 
     def normalise_target(self):
@@ -37,7 +38,7 @@ class Url(models.Model):
         if not re.match(PROTOCOL_PATTERN, self.target):
             self.target = "http://" + self.target
 
-    def update_title(self):
+    def set_title(self):
         """
         Set the title to contents of the title tag of the page that the target
         points to. If this page doesn't have a title, or it doesn't exist, then
