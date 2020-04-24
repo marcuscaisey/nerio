@@ -6,6 +6,7 @@ from django.utils import timezone
 class Url(models.Model):
     name = models.CharField(unique=True, max_length=120)
     target = models.TextField()
+    title = models.TextField()
     created_by = models.ForeignKey(
         get_user_model(),
         on_delete=models.DO_NOTHING,
