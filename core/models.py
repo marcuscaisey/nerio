@@ -2,6 +2,7 @@ import re
 
 import bs4
 import requests
+from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.db import models
 from django.utils import timezone
@@ -30,6 +31,9 @@ class Url(models.Model):
             self.normalise_target()
             self.set_title()
         super().save(*args, **kwargs)
+
+    def get_absolute_url(self):
+        return settings.ROOT_URL + self.name
 
     def normalise_target(self):
         """

@@ -8,3 +8,13 @@ $primary: $orange;
 $link: $primary;
 
 @import "node_modules/bulma/bulma.sass";
+
+#home-hero {
+  position: relative;
+}
+
+#home-hero-cutout {
+  position: absolute;
+  bottom: 0;
+  fill: $white;
+}

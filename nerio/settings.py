@@ -130,3 +130,8 @@ STATICFILES_DIRS = [
 # Users
 
 AUTH_USER_MODEL = "users.User"
+
+
+# Core
+
+ROOT_URL = "http://nerio.co.uk/"
