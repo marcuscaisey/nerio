@@ -16,6 +16,7 @@ click==7.1.1              # via black, litecli, pip-tools
 configobj==5.0.6          # via cli-helpers, litecli
 decorator==4.4.2          # via ipython, traitlets
 defusedxml==0.6.0         # via nbconvert
+django-extensions==2.2.9  # via -r dev.in
 django-widget-tweaks==1.4.8  # via -r main.txt
 django==3.0.5             # via -r main.txt
 entrypoints==0.3          # via flake8, nbconvert
@@ -59,7 +60,7 @@ qtconsole==4.7.3          # via jupyter
 qtpy==1.9.0               # via qtconsole
 regex==2020.4.4           # via black
 send2trash==1.5.0         # via notebook
-six==1.14.0               # via bleach, configobj, jsonschema, pip-tools, python-dateutil, traitlets
+six==1.14.0               # via bleach, configobj, django-extensions, jsonschema, pip-tools, python-dateutil, traitlets
 sqlparse==0.3.1           # via -r main.txt, django, litecli
 tabulate[widechars]==0.8.7  # via cli-helpers
 terminado==0.8.3          # via notebook
