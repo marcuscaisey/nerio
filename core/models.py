@@ -1,3 +1,5 @@
+import re
+
 from django.contrib.auth import get_user_model
 from django.db import models
 from django.utils import timezone
@@ -18,3 +20,8 @@ class Url(models.Model):
     created_at = models.DateTimeField(default=timezone.now)
     is_active = models.BooleanField(default=True)
     visits = models.PositiveIntegerField(default=0)
+
+    def save(self, *args, **kwargs):
+        if not re.match(r"^https?//", self.target.lower()):
+            self.target = "http://" + self.target
+        super().save(*args, **kwargs)
