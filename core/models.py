@@ -22,6 +22,12 @@ class Url(models.Model):
     visits = models.PositiveIntegerField(default=0)
 
     def save(self, *args, **kwargs):
+        self.normalise_target()
+        super().save(*args, **kwargs)
+
+    def normalise_target(self):
+        """
+        Prefix the target with http:// if it doesn't stat with http or https.
+        """
         if not re.match(r"^https?//", self.target.lower()):
             self.target = "http://" + self.target
-        super().save(*args, **kwargs)
