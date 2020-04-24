@@ -29,5 +29,5 @@ class Url(models.Model):
         """
         Prefix the target with http:// if it doesn't stat with http or https.
         """
-        if not re.match(r"^https?://", self.target.lower()):
+        if not re.match(r"(?i)^https?://", self.target):
             self.target = "http://" + self.target
