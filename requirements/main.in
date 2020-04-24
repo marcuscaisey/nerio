@@ -1,2 +1,4 @@
+beautifulsoup4==4.9.0
 django==3.0.5
 django-widget-tweaks==1.4.8
+requests==2.23.0

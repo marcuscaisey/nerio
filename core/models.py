@@ -1,8 +1,12 @@
 import re
 
+import bs4
+import requests
 from django.contrib.auth import get_user_model
 from django.db import models
 from django.utils import timezone
+
+PROTOCOL_PATTERN = r"(?i)^https?://"
 
 
 class Url(models.Model):
@@ -23,11 +27,29 @@ class Url(models.Model):
 
     def save(self, *args, **kwargs):
         self.normalise_target()
+        self.update_title()
         super().save(*args, **kwargs)
 
     def normalise_target(self):
         """
         Prefix the target with http:// if it doesn't stat with http or https.
         """
-        if not re.match(r"(?i)^https?://", self.target):
+        if not re.match(PROTOCOL_PATTERN, self.target):
             self.target = "http://" + self.target
+
+    def update_title(self):
+        """
+        Set the title to contents of the title tag of the page that the target
+        points to. If this page doesn't have a title, or it doesn't exist, then
+        set the title to the target with the protocol stripped from the front.
+        """
+        self.title = re.sub(PROTOCOL_PATTERN, "", self.target)
+
+        try:
+            r = requests.get(self.target)
+        except requests.ConnectionError:
+            return
+
+        soup = bs4.BeautifulSoup(r.content, features="html.parser")
+        if soup.title:
+            self.title = soup.title.string
