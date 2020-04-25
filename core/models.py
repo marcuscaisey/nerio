@@ -7,11 +7,15 @@ from django.contrib.auth import get_user_model
 from django.db import models
 from django.utils import timezone
 
+from .validators import URLNameValidator
+
 PROTOCOL_PATTERN = r"(?i)^https?://"
 
 
 class Url(models.Model):
-    name = models.CharField(unique=True, max_length=120)
+    name = models.CharField(
+        unique=True, max_length=120, validators=[URLNameValidator()]
+    )
     target = models.TextField()
     title = models.TextField()
     created_by = models.ForeignKey(
