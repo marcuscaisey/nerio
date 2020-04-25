@@ -19,6 +19,7 @@
                     <label for="{{ form.target.field.id_for_label }}" class="label">{{ form.target.label }}</label>
                     {% render_field form.target class="input" placeholder="http://www.reddit.com/r/django"%}
                   </div>
+                  <div class="help is-danger">{{ form.target.errors }}</div>
                 </div>
 
                 <div class="field">
@@ -33,7 +34,11 @@
                       </div>
                     </div>
                   </div>
-                  <p class="help">{{ form.name.help_text }}</p>
+                  {% if form.name.errors %}
+                    <div class="help is-danger">{{ form.name.errors }}</div>
+                  {% else %}
+                    <p class="help">{{ form.name.help_text }}</p>
+                  {% endif %}
                 </div>
 
                 <div class="field">
