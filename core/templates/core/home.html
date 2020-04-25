@@ -17,7 +17,7 @@
                 <div class="field">
                   <div class="control">
                     <label for="{{ form.target.field.id_for_label }}" class="label">{{ form.target.label }}</label>
-                    {% render_field form.target class="input" placeholder="http://www.reddit.com/r/django"%}
+                    {% render_field form.target class="input" placeholder="http://www.reddit.com/r/django" %}
                   </div>
                   <div class="help is-danger">{{ form.target.errors }}</div>
                 </div>
@@ -64,33 +64,35 @@
     </svg>
   </section>
 
-  <section class="section container">
-    <div class="columns is-centered">
-      <div class="column is-8">
-        <div class="box">
-          {% for url in urls %}
-            <div class="media">
-              <div class="media-content">
-                <p><strong>Created:</strong> {{ url.created_at }}</p>
-                <p><strong>Title:</strong> {{ url.title }}</p>
-                <p>
-                  <strong>Original url:</strong>
-                  <a class="has-text-grey-dark" href="{{ url.target }}">
-                    {{ url.target }}
-                  </a>
-                </p>
-                <p>
-                  <strong>Shortened url:</strong>
-                  <a href="/{{ url.name }}">
-                    {{ url.get_absolute_url }}
-                  </a>
-                </p>
-                <p><strong>Visits:</strong> {{ url.visits }}</p>
+  {% if urls %}
+    <section class="section container">
+      <div class="columns is-centered">
+        <div class="column is-8">
+          <div class="box">
+            {% for url in urls %}
+              <div class="media">
+                <div class="media-content">
+                  <p><strong>Created:</strong> {{ url.created_at }}</p>
+                  <p><strong>Title:</strong> {{ url.title }}</p>
+                  <p>
+                    <strong>Original url:</strong>
+                    <a class="has-text-grey-dark" href="{{ url.target }}">
+                      {{ url.target }}
+                    </a>
+                  </p>
+                  <p>
+                    <strong>Shortened url:</strong>
+                    <a href="/{{ url.name }}">
+                      {{ url.get_absolute_url }}
+                    </a>
+                  </p>
+                  <p><strong>Visits:</strong> {{ url.visits }}</p>
+                </div>
               </div>
-            </div>
-          {% endfor %}
+            {% endfor %}
+          </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
+  {% endif %}
 {% endblock %}
