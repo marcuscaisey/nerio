@@ -82,7 +82,7 @@
                   </p>
                   <p>
                     <strong>Shortened URL:</strong>
-                    <a href="/{{ url.name }}">
+                    <a href="{% url "core:forward" url.name %}">
                       {{ url.get_absolute_url }}
                     </a>
                   </p>
