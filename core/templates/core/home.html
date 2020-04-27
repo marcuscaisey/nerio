@@ -37,11 +37,7 @@
       {% endif %}
     </div>
 
-    <div class="field">
-      <div class="control has-text-centered">
-        <input type="submit" class="button is-primary" value="Shorten">
-      </div>
-    </div>
+    {% include "forms/submit.html" with value="Shorten" %}
   </form>
 {% endblock %}
 
