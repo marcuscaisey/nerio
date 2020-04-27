@@ -1,15 +1,15 @@
 from django import forms
 from django.forms import TextInput
 
-from .models import Url
+from .models import URL
 
 
-class UrlCreationForm(forms.ModelForm):
+class URLCreationForm(forms.ModelForm):
     class Meta:
-        model = Url
+        model = URL
         fields = ("target", "name")
         labels = {
-            "target": "Url",
+            "target": "URL",
         }
         error_messages = {
             "name": {

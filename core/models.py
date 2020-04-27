@@ -14,7 +14,7 @@ from .validators import URLNameValidator
 PROTOCOL_PATTERN = r"(?i)^https?://"
 
 
-class Url(models.Model):
+class URL(models.Model):
     name = models.CharField(
         unique=True, max_length=120, blank=True, validators=[URLNameValidator()]
     )

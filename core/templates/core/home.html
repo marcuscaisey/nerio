@@ -8,7 +8,7 @@
       <div class="container">
         <div class="columns is-centered">
           <div class="column is-5-fullhd is-6-widescreen is-7-desktop is-8-tablet">
-            <h1 class="title has-text-centered">A simple url shortener.</h1>
+            <h1 class="title has-text-centered">A simple URL shortener.</h1>
 
             <div class="box">
               <form method="post">
@@ -75,13 +75,13 @@
                   <p><strong>Created:</strong> {{ url.created_at }}</p>
                   <p><strong>Title:</strong> {{ url.title }}</p>
                   <p>
-                    <strong>Original url:</strong>
+                    <strong>Original URL:</strong>
                     <a class="has-text-grey-dark" href="{{ url.target }}">
                       {{ url.target }}
                     </a>
                   </p>
                   <p>
-                    <strong>Shortened url:</strong>
+                    <strong>Shortened URL:</strong>
                     <a href="/{{ url.name }}">
                       {{ url.get_absolute_url }}
                     </a>
