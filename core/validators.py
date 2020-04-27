@@ -1,11 +1,9 @@
 from django.core.validators import RegexValidator
 
-URL_NAME_PATTERN = r"^([a-zA-Z0-9_-]+)$"
-
 
 class URLNameValidator(RegexValidator):
     """Validate that a the URL name contains only letters, numbers, -, and _."""
 
-    regex = URL_NAME_PATTERN
+    regex = r"^[a-zA-Z0-9_-]+$"
     message = "This can only contain letters, numbers, -, and _."
     code = "invalid_name"
