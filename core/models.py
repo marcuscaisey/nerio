@@ -1,12 +1,14 @@
+import random
 import re
 
 import bs4
 import requests
 from django.conf import settings
 from django.contrib.auth import get_user_model
-from django.db import models
+from django.db import IntegrityError, models
 from django.utils import timezone
 
+from . import words
 from .validators import URLNameValidator
 
 PROTOCOL_PATTERN = r"(?i)^https?://"
@@ -14,7 +16,7 @@ PROTOCOL_PATTERN = r"(?i)^https?://"
 
 class Url(models.Model):
     name = models.CharField(
-        unique=True, max_length=120, validators=[URLNameValidator()]
+        unique=True, max_length=120, blank=True, validators=[URLNameValidator()]
     )
     target = models.TextField()
     title = models.TextField()
@@ -31,10 +33,24 @@ class Url(models.Model):
     visits = models.PositiveIntegerField(default=0)
 
     def save(self, *args, **kwargs):
+        saved = False
+
         if self.pk is None:
             self.normalise_target()
             self.set_title()
-        super().save(*args, **kwargs)
+
+        if not self.name:
+            while True:
+                try:
+                    self.set_random_name()
+                    super().save(*args, **kwargs)
+                    saved = True
+                    break
+                except IntegrityError:
+                    pass
+
+        if not saved:
+            super().save(*args, **kwargs)
 
     def get_absolute_url(self):
         return settings.ROOT_URL + self.name
@@ -45,6 +61,19 @@ class Url(models.Model):
         """
         if not re.match(PROTOCOL_PATTERN, self.target):
             self.target = "http://" + self.target
+
+    def set_random_name(self):
+        """
+        Set the name to a random combination of two adjectives followed by a
+        noun.
+        """
+        self.name = "".join(
+            word.title()
+            for word in [
+                *random.sample(words.ADJECTIVES, 2),
+                random.choice(words.NOUNS),
+            ]
+        )
 
     def set_title(self):
         """
