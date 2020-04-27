@@ -2,68 +2,50 @@
 {% load static %}
 {% load widget_tweaks %}
 
-{% block content %}
-  <section id="home-hero" class="hero is-primary is-bold">
-    <div class="hero-body">
-      <div class="container">
-        <div class="columns is-centered">
-          <div class="column is-5-fullhd is-6-widescreen is-7-desktop is-8-tablet">
-            <h1 class="title has-text-centered">A simple URL shortener.</h1>
+{% block hero-title %}
+  A simple URL shortener.
+{% endblock %}
 
-            <div class="box">
-              <form method="post">
-                {% csrf_token %}
+{% block hero-box %}
+  <form method="post">
+    {% csrf_token %}
 
-                <div class="field">
-                  <div class="control">
-                    <label for="{{ form.target.field.id_for_label }}" class="label">{{ form.target.label }}</label>
-                    {% render_field form.target class="input" placeholder="http://www.reddit.com/r/django" %}
-                  </div>
-                  <div class="help is-danger">{{ form.target.errors }}</div>
-                </div>
+    <div class="field">
+      <div class="control">
+        <label for="{{ form.target.field.id_for_label }}" class="label">{{ form.target.label }}</label>
+        {% render_field form.target class="input" placeholder="http://www.reddit.com/r/django" %}
+      </div>
+      <div class="help is-danger">{{ form.target.errors }}</div>
+    </div>
 
-                <div class="field">
-                  <div class="control">
-                    <label for="{{ form.name.field.id_for_label }}" class="label">{{ form.name.label }}</label>
-                    <div class="field has-addons">
-                      <div class="control">
-                        <button class="button is-static" tabindex="-1">{{ root_url }}</button>
-                      </div>
-                      <div class="control is-expanded">
-                        {% render_field form.name class="input" placeholder="django-sub" %}
-                      </div>
-                    </div>
-                  </div>
-                  {% if form.name.errors %}
-                    <div class="help is-danger">{{ form.name.errors }}</div>
-                  {% else %}
-                    <p class="help">{{ form.name.help_text }}</p>
-                  {% endif %}
-                </div>
-
-                <div class="field">
-                  <div class="control has-text-centered">
-                    <input type="submit" class="button is-primary" value="Shorten">
-                  </div>
-                </div>
-              </form>
-            </div>
+    <div class="field">
+      <div class="control">
+        <label for="{{ form.name.field.id_for_label }}" class="label">{{ form.name.label }}</label>
+        <div class="field has-addons">
+          <div class="control">
+            <button class="button is-static" tabindex="-1">{{ root_url }}</button>
+          </div>
+          <div class="control is-expanded">
+            {% render_field form.name class="input" placeholder="django-sub" %}
           </div>
         </div>
       </div>
+      {% if form.name.errors %}
+        <div class="help is-danger">{{ form.name.errors }}</div>
+      {% else %}
+        <p class="help">{{ form.name.help_text }}</p>
+      {% endif %}
     </div>
-    <svg id="home-hero-cutout" viewBox="0 0 1000 50"
-         xmlns="http://www.w3.org/2000/svg">
-      <path d="M 0,0
-               v 50
-               h 1000
-               v -50
-               C 900,20 650,50 500,50
-               C 350,50 100,20 0,0
-               z"/>
-    </svg>
-  </section>
 
+    <div class="field">
+      <div class="control has-text-centered">
+        <input type="submit" class="button is-primary" value="Shorten">
+      </div>
+    </div>
+  </form>
+{% endblock %}
+
+{% block post-hero %}
   {% if urls %}
     <section class="section container">
       <div class="columns is-centered">

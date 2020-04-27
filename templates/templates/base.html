@@ -70,7 +70,35 @@
   </div>
 </nav>
 
-{% block content %}{% endblock %}
+<section id="home-hero" class="hero is-primary is-bold">
+  <div class="hero-body">
+    <div class="container">
+      <div class="columns is-centered">
+        <div class="column is-5-fullhd is-6-widescreen is-7-desktop is-8-tablet">
+          <h1 class="title has-text-centered">
+            {% block hero-title %}{% endblock %}
+          </h1>
+
+          <div class="box">
+            {% block hero-box %}{% endblock %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <svg id="home-hero-cutout" viewBox="0 0 1000 50"
+       xmlns="http://www.w3.org/2000/svg">
+    <path d="M 0,0
+               v 50
+               h 1000
+               v -50
+               C 900,20 650,50 500,50
+               C 350,50 100,20 0,0
+               z"></path>
+  </svg>
+</section>
+
+{% block post-hero %}{% endblock %}
 
 </body>
 
