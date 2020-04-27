@@ -4,7 +4,7 @@ from django.forms import TextInput
 from .models import Url
 
 
-class UrlForm(forms.ModelForm):
+class UrlCreationForm(forms.ModelForm):
     class Meta:
         model = Url
         fields = ("target", "name")

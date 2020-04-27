@@ -2,18 +2,18 @@ from django.conf import settings
 from django.db.models import F
 from django.shortcuts import get_object_or_404, redirect, render
 
-from .forms import UrlForm
+from .forms import UrlCreationForm
 from .models import Url
 
 
 def home(request):
     if request.method == "POST":
-        form = UrlForm(request.POST)
+        form = UrlCreationForm(request.POST)
         if form.is_valid():
             form.save()
             return redirect("core:home")
     else:
-        form = UrlForm()
+        form = UrlCreationForm()
 
     urls = Url.objects.order_by("-created_at")[:5]
     return render(
