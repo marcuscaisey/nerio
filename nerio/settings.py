@@ -130,6 +130,9 @@ STATICFILES_DIRS = [
 # Users
 
 AUTH_USER_MODEL = "users.User"
+AUTHENTICATION_BACKENDS = [
+    "users.backends.ModelBackend",
+]
 
 
 # Core
