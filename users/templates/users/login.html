@@ -23,22 +23,15 @@
       <div class="field">
         <label for="{{ field.field.id_for_label }}" class="label">{{ field.label }}</label>
 
-        {% if field.errors %}
-          <div class="control">
-            {% render_field field class="input is-danger" %}
-          </div>
+        <div class="control">
+          {{ field|add_class:"input"|add_error_class:"is-danger" }}
+        </div>
 
-          <ul class="help is-danger">
-            {% for error in field.errors %}
-              <li>{{ error }}</li>
-            {% endfor %}
-          </ul>
-
-        {% else %}
-          <div class="control">
-            {% render_field field class="input" %}
-          </div>
-        {% endif %}
+        <ul class="help is-danger">
+          {% for error in field.errors %}
+            <li>{{ error }}</li>
+          {% endfor %}
+        </ul>
       </div>
     {% endfor %}
 
