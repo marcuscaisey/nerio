@@ -1,0 +1,27 @@
+{% extends "templates/base.html" %}
+
+{% block hero-title %}
+  {{ title }}
+{% endblock %}
+
+{% block hero-box %}
+  {% if form.non_field_errors %}
+    <div class="notification is-danger is-light has-text-centered">
+      <ul>
+        {% for error in form.non_field_errors %}
+          <li>{{ error }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+  {% endif %}
+
+  <form method="post">
+    {% csrf_token %}
+
+    {% for field in form %}
+      {% include "forms/field.html" %}
+    {% endfor %}
+
+    {% include "forms/submit.html" with value=submit_value %}
+  </form>
+{% endblock %}
