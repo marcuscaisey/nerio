@@ -80,6 +80,10 @@
           </h1>
 
           <div class="box">
+            {% for message in messages %}
+              <p class="notification is-light has-text-centered {{ message.tags }}">{{ message }}</p>
+            {% endfor %}
+
             {% block hero-box %}{% endblock %}
           </div>
         </div>
