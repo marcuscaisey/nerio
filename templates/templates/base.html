@@ -39,7 +39,7 @@
             Log out
           </a>
         {% else %}
-          <a class="navbar-item is-hidden-desktop">
+          <a href="{% url "users:login" %}" class="navbar-item is-hidden-desktop">
             Log in
           </a>
           <a class="navbar-item is-hidden-desktop">
@@ -56,7 +56,7 @@
             </a>
           {% else %}
             <div class="buttons">
-              <a class="button is-primary">
+              <a href="{% url "users:login" %}" class="button is-primary">
                 Log in
               </a>
               <a class="button is-primary is-outlined">
