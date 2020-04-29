@@ -1,4 +1,10 @@
 from django.contrib.auth import models as auth_models
+from django.db import models
+
+from .validators import (
+    UsernameCharactersValidator,
+    validate_username_case_insensitive_unique,
+)
 
 
 class UserManager(auth_models.UserManager):
@@ -8,4 +14,18 @@ class UserManager(auth_models.UserManager):
 
 
 class User(auth_models.AbstractUser):
+    username = models.CharField(
+        "username",
+        max_length=150,
+        unique=True,
+        help_text=(
+            "Required. 150 characters or fewer. Letters, digits and underscores only."
+        ),
+        validators=[
+            UsernameCharactersValidator(),
+            validate_username_case_insensitive_unique,
+        ],
+        error_messages={"unique": "A user with that username already exists."},
+    )
+
     objects = UserManager()

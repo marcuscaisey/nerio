@@ -1,4 +1,5 @@
 from django.contrib.auth import forms as auth_forms
+from django.contrib.auth import get_user_model
 
 
 class AuthenticationForm(auth_forms.AuthenticationForm):
@@ -8,3 +9,9 @@ class AuthenticationForm(auth_forms.AuthenticationForm):
         ),
         "inactive": "This account is inactive.",
     }
+
+
+class UserCreationForm(auth_forms.UserCreationForm):
+    class Meta:
+        model = get_user_model()
+        fields = ("username",)
