@@ -133,6 +133,8 @@ AUTHENTICATION_BACKENDS = [
     "users.backends.ModelBackend",
 ]
 
+LOGIN_REDIRECT_URL = "core:home"
+
 
 # Core
 
