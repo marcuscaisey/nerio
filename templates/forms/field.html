@@ -7,9 +7,5 @@
     {{ field|add_class:"input"|add_error_class:"is-danger" }}
   </div>
 
-  <ul class="help is-danger">
-    {% for error in field.errors %}
-      <li>{{ error }}</li>
-    {% endfor %}
-  </ul>
+  {% include "forms/help_text.html" %}
 </div>
