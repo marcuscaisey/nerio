@@ -1,0 +1,11 @@
+{% include "forms/non_field_errors.html" %}
+
+<form method="post">
+  {% csrf_token %}
+
+  {% for field in form %}
+    {% include "forms/field.html" %}
+  {% endfor %}
+
+  {% include "forms/submit.html" with value=submit_value %}
+</form>
