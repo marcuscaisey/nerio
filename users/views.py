@@ -9,6 +9,7 @@ from users.forms import AuthenticationForm, UserCreationForm
 class LoginView(auth_views.LoginView):
     authentication_form = AuthenticationForm
     template_name = "users/login.html"
+    redirect_authenticated_user = True
 
 
 class PasswordChangeView(SuccessMessageMixin, auth_views.PasswordChangeView):
