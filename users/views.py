@@ -24,10 +24,6 @@ class PasswordChangeView(SuccessMessageMixin, auth_views.PasswordChangeView):
 
 class SignupView(SuccessMessageMixin, CreateView):
     form_class = UserCreationForm
-    template_name = "templates/form.html"
+    template_name = "users/signup.html"
     success_url = reverse_lazy("users:login")
     success_message = "Your account has been created."
-    extra_context = {
-        "title": "Signup",
-        "submit_value": "Sign up",
-    }
