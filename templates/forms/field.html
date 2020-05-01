@@ -1,7 +1,7 @@
 {% load widget_tweaks %}
 
 <div class="field">
-  <label for="{{ field.field.id_for_label }}" class="label">{{ field.label }}</label>
+  {% include "forms/label.html" %}
 
   <div class="control">
     {{ field|add_class:"input"|add_error_class:"is-danger" }}
