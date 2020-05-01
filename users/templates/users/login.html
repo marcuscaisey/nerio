@@ -1,0 +1,25 @@
+{% extends "templates/base.html" %}
+
+{% block hero-title %}
+  Login
+{% endblock %}
+
+{% block hero-box %}
+  {% if user.is_authenticated %}
+    <p class="is-size-5">
+      You're already logged in, click <a href="{% url "core:home" %}">here</a> to return to the home page.
+    </p>
+
+  {% else %}
+    <p class="is-size-5">
+      {% if next %}
+        You must be logged in to view this page.
+      {% else %}
+        Don't have an account? Click <a href="{% url "users:signup" %}">here</a> to sign up.
+      {% endif %}
+    </p>
+    <br>
+
+    {% include "forms/form.html" with submit_value="Log in" %}
+  {% endif %}
+{% endblock %}

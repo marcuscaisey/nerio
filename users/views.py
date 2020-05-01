@@ -8,11 +8,7 @@ from users.forms import AuthenticationForm, UserCreationForm
 
 class LoginView(auth_views.LoginView):
     authentication_form = AuthenticationForm
-    template_name = "templates/form.html"
-    extra_context = {
-        "title": "Login",
-        "submit_value": "Log in",
-    }
+    template_name = "users/login.html"
 
 
 class PasswordChangeView(SuccessMessageMixin, auth_views.PasswordChangeView):
