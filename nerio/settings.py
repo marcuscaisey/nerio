@@ -133,6 +133,7 @@ AUTHENTICATION_BACKENDS = [
     "users.backends.ModelBackend",
 ]
 
+LOGIN_URL = "users:login"
 LOGIN_REDIRECT_URL = "core:home"
 LOGOUT_REDIRECT_URL = "core:home"
 

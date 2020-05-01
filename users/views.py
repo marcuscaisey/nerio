@@ -15,6 +15,16 @@ class LoginView(auth_views.LoginView):
     }
 
 
+class PasswordChangeView(SuccessMessageMixin, auth_views.PasswordChangeView):
+    template_name = "templates/form.html"
+    success_url = reverse_lazy("core:home")
+    success_message = "Your password has been changed."
+    extra_context = {
+        "title": "Change password",
+        "submit_value": "Change password",
+    }
+
+
 class SignupView(SuccessMessageMixin, CreateView):
     form_class = UserCreationForm
     template_name = "templates/form.html"
