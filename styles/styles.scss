@@ -2,6 +2,7 @@
 
 // Colours
 $orange: hsla(18, 65%, 55%, 1);
+$red: hsla(0, 65%, 55%, 1);
 
 // Derived
 $primary: $orange;
@@ -17,4 +18,62 @@ $link: $primary;
   position: absolute;
   bottom: 0;
   fill: $white;
+}
+
+@mixin truncate {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.url-row {
+  display: flex;
+  justify-content: space-between;
+}
+
+.target-url-container {
+  flex-basis: 100%;
+  min-width: 0;
+}
+
+.target-title {
+  @include truncate;
+  color: $grey-darker;
+}
+
+.target {
+  @include truncate;
+  color: $grey;
+}
+
+.url-container {
+  @include tablet {
+    display: flex;
+    margin-top: 0.5rem;
+  }
+  align-items: center;
+  justify-content: space-between;
+}
+
+.url {
+  @include truncate;
+  @include mobile {
+    margin-bottom: 0.5rem;
+  }
+  color: $link;
+}
+
+.url-buttons {
+  @extend .buttons;
+  flex-wrap: nowrap;
+}
+
+.date-visits-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-left: 1rem;
+  > button {
+    pointer-events: none;
+  }
 }

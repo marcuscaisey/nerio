@@ -1,76 +1,61 @@
 {% extends "templates/base.html" %}
-{% load static %}
-{% load widget_tweaks %}
 
 {% block hero-title %}
   A simple URL shortener.
 {% endblock %}
 
 {% block hero-box %}
-  <form method="post">
-    {% csrf_token %}
-
-    <div class="field">
-      <div class="control">
-        <label for="{{ form.target.field.id_for_label }}" class="label">{{ form.target.label }}</label>
-        {% render_field form.target class="input" placeholder="http://www.reddit.com/r/django" %}
-      </div>
-      <div class="help is-danger">{{ form.target.errors }}</div>
-    </div>
-
-    <div class="field">
-      <div class="control">
-        <label for="{{ form.name.field.id_for_label }}" class="label">{{ form.name.label }}</label>
-        <div class="field has-addons">
-          <div class="control">
-            <button class="button is-static" tabindex="-1">{{ root_url }}</button>
-          </div>
-          <div class="control is-expanded">
-            {% render_field form.name class="input" placeholder="django-sub" %}
-          </div>
-        </div>
-      </div>
-      {% if form.name.errors %}
-        <div class="help is-danger">{{ form.name.errors }}</div>
-      {% else %}
-        <p class="help">{{ form.name.help_text }}</p>
-      {% endif %}
-    </div>
-
-    {% include "forms/submit.html" with value="Shorten" %}
-  </form>
+  {% include "forms/form.html" with submit_value="Shorten" %}
 {% endblock %}
 
 {% block post-hero %}
   {% if urls %}
     <section class="section container">
       <div class="columns is-centered">
-        <div class="column is-8">
+        <div class="column is-8-fullhd is-9-widescreen is-10-desktop is-11-tablet">
           <div class="box">
             {% for url in urls %}
-              <div class="media">
-                <div class="media-content">
-                  <p><strong>Created:</strong> {{ url.created_at }}</p>
-                  <p><strong>Title:</strong> {{ url.title }}</p>
-                  <p>
-                    <strong>Original URL:</strong>
-                    <a class="has-text-grey-dark" href="{{ url.target }}">
+              <div class="url-row">
+                <div class="target-url-container">
+                  <div class="target-title">
+                    <strong>{{ url.title }}</strong>
+                  </div>
+                  <div class="target">
+                    <a class="has-text-grey is-size-7" href="{{ url.target }}">
                       {{ url.target }}
                     </a>
-                  </p>
-                  <p>
-                    <strong>Shortened URL:</strong>
-                    <a href="{% url "core:forward" url.name %}">
-                      {{ url.get_absolute_url }}
-                    </a>
-                  </p>
-                  <p><strong>Visits:</strong> {{ url.visits }}</p>
+                  </div>
+
+                  <div class="url-container">
+                    <div class="url">
+                      <a href="{% url "core:forward" url.name %}">
+                        <strong>{{ url.get_absolute_url }}</strong>
+                      </a>
+                    </div>
+                    <div class="url-buttons">
+                      <button class="button is-small is-success is-outlined">Copy</button>
+                      <a class="button is-small is-info is-outlined">Rename</a>
+                      <a class="button is-small is-danger is-outlined">Delete</a>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="date-visits-container is-hidden-mobile">
+                  <button class="button is-small is-outlined">
+                    {{ url.created_at|date }}
+                  </button>
+                  <button class="button is-small is-outlined">
+                    <span>Visits <strong>{{ url.visits }}</strong></span>
+                  </button>
                 </div>
               </div>
+
+              {% if not forloop.last %}
+                <hr>
+              {% endif %}
             {% endfor %}
           </div>
         </div>
-      </div>
     </section>
   {% endif %}
 {% endblock %}
