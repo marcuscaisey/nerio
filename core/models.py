@@ -89,6 +89,9 @@ class URL(models.Model):
         except Exception:
             return
 
+        if not 200 <= r.status_code < 300:
+            return
+
         soup = bs4.BeautifulSoup(r.content, features="html.parser")
         if soup.title:
             self.title = soup.title.string
