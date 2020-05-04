@@ -81,7 +81,8 @@ class URL(models.Model):
         points to. If this page doesn't have a title, or it doesn't exist, then
         set the title to the target with the protocol stripped from the front.
         """
-        self.title = re.sub(PROTOCOL_PATTERN, "", self.target)
+        target_without_protocol = re.sub(PROTOCOL_PATTERN, "", self.target)
+        self.title = target_without_protocol.split("/")[0]
 
         try:
             r = requests.get(self.target)
