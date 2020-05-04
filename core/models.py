@@ -78,8 +78,10 @@ class URL(models.Model):
     def set_title(self):
         """
         Set the title to contents of the title tag of the page that the target
-        points to. If this page doesn't have a title, or it doesn't exist, then
-        set the title to the target with the protocol stripped from the front.
+        points to. If this page doesn't have a title, or the GET request to the
+        target doesn't return a 2xx status code, or an exception is raised when
+        making the GET request, then set the title to the target with the
+        protocol stripped from the front and the path stripped from the back.
         """
         target_without_protocol = re.sub(PROTOCOL_PATTERN, "", self.target)
         self.title = target_without_protocol.split("/")[0]
