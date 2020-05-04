@@ -86,7 +86,7 @@ class URL(models.Model):
 
         try:
             r = requests.get(self.target)
-        except requests.ConnectionError:
+        except Exception:
             return
 
         soup = bs4.BeautifulSoup(r.content, features="html.parser")
