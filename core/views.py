@@ -15,7 +15,11 @@ def home(request):
     else:
         form = URLCreationForm()
 
-    urls = URL.objects.order_by("-created_at")[:5]
+    if request.user.is_authenticated:
+        urls = request.user.urls.order_by("-created_at")
+    else:
+        urls = [URL.objects.order_by("-created_at").first()]
+
     return render(
         request,
         "core/home.html",
