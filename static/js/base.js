@@ -11,9 +11,5 @@ function setupNavbarBurger() {
   });
 }
 
-if (document.readyState === "loading") {
-  document.addEventListener("DOMContentLoaded", setupNavbarBurger);
-} else {
-  setupNavbarBurger();
-}
+setupNavbarBurger();
 
