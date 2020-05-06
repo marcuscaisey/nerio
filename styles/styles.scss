@@ -73,7 +73,23 @@ $link: $primary;
   flex-direction: column;
   justify-content: space-between;
   margin-left: 1rem;
+
   > button {
     pointer-events: none;
+  }
+}
+
+#notices {
+  position: fixed;
+  bottom: 1.5rem;
+  left: 1.5rem;
+}
+
+.notice {
+  @extend .notification;
+  max-width: 300px;
+
+  &:not(:last-child) {
+    margin-bottom: 1rem;
   }
 }
