@@ -12,6 +12,18 @@ function setupNavbarBurger() {
 }
 
 /*
+ * Display the messages passed to the template.
+ */
+function displayMessages() {
+  const messagesJSON = document.getElementById("messages").textContent;
+  const messages = JSON.parse(messagesJSON);
+
+  for (const message of messages) {
+    displayNotice(message.message, [message.level_tag]);
+  }
+}
+
+/*
  * Display a notice by fading it in and then out after some time.
  *
  * @param message The message to display.
@@ -107,3 +119,4 @@ function sleep(duration) {
 }
 
 setupNavbarBurger();
+displayMessages();

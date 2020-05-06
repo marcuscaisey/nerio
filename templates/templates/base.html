@@ -1,4 +1,5 @@
 {% load static %}
+{% load base %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -85,10 +86,6 @@
           </h1>
 
           <div class="box">
-            {% for message in messages %}
-              <p class="notification is-light has-text-centered {{ message.tags }}">{{ message }}</p>
-            {% endfor %}
-
             {% block hero-box %}{% endblock %}
           </div>
         </div>
@@ -98,12 +95,12 @@
   <svg id="home-hero-cutout" viewBox="0 0 1000 50"
        xmlns="http://www.w3.org/2000/svg">
     <path d="M 0,0
-               v 50
-               h 1000
-               v -50
-               C 900,20 650,50 500,50
-               C 350,50 100,20 0,0
-               z"></path>
+             v 50
+             h 1000
+             v -50
+             C 900,20 650,50 500,50
+             C 350,50 100,20 0,0
+             z"></path>
   </svg>
 </section>
 
@@ -112,5 +109,9 @@
 <div id="notices"></div>
 
 </body>
+
+<script id="messages">
+  {% messages_json %}
+</script>
 
 </html>
