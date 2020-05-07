@@ -58,11 +58,9 @@ function fade(element, duration, direction) {
     const steps = 100;
     const increment = direction / steps;
     const interval = duration / steps;
-    const initialOpacity = (1 - direction) / 2;
 
-    if (element.style.opacity !== initialOpacity) {
-      element.style.opacity = initialOpacity;
-    }
+    const initialOpacity = (1 - direction) / 2;
+    element.style.opacity = initialOpacity;
 
     let intervalID = setInterval(() => {
       element.style.opacity = parseFloat(element.style.opacity) + increment;
