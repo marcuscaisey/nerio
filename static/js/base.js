@@ -29,22 +29,13 @@ function displayMessages() {
  * @param message The message to display.
  * @param extraClasses An iterable of extra classes to add to the alert div.
  */
-async function displayNotice(message, extraClasses) {
+async function displayNotice(message, extraClasses = []) {
   const notice = document.createElement("div");
-  notice.classList.add("notice");
-  if (extraClasses) {
-    for (const className of extraClasses) {
-      notice.classList.add(className);
-    }
-  }
+  notice.classList.add("notice", ...extraClasses);
   notice.append(message);
 
   const notices = document.getElementById("notices");
-  if (notices.children) {
-    notices.insertBefore(notice, notices.firstChild);
-  } else {
-    notices.append(notice);
-  }
+  notices.insertBefore(notice, notices.firstChild);
 
   await fadeIn(notice, 500);
   await sleep(5000);
