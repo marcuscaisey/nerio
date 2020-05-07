@@ -1,5 +1,11 @@
 {% extends "templates/base.html" %}
 
+{% load static %}
+
+{% block scripts %}
+  <script src="{% static "js/home.js" %}" defer></script>
+{% endblock %}
+
 {% block hero-title %}
   A simple URL shortener.
 {% endblock %}
@@ -13,7 +19,7 @@
     <section class="section container">
       <div class="columns is-centered">
         <div class="column is-8-fullhd is-9-widescreen is-10-desktop is-11-tablet">
-          <div class="box">
+          <div id="urls" class="box">
             {% for url in urls %}
               <div class="url-row">
                 <div class="target-url-container">
@@ -33,7 +39,9 @@
                       </a>
                     </div>
                     <div class="url-buttons">
-                      <button class="button is-small is-success is-outlined">Copy</button>
+                      <button class="button copy is-small is-success is-outlined" data-url="{{ url.get_absolute_url }}">
+                        Copy
+                      </button>
                       <a class="button is-small is-info is-outlined">Rename</a>
                       {% if user.is_authnenticated %}
                         <a class="button is-small is-danger is-outlined">Delete</a>
