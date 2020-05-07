@@ -10,15 +10,27 @@ def home(request):
     if request.method == "POST":
         form = URLCreationForm(request.POST)
         if form.is_valid():
-            form.save(user=request.user)
+            if request.user.is_authenticated:
+                url = form.save(commit=False)
+                url.created_by = request.user
+                url.save()
+            else:
+                url = form.save()
+                session_urls = request.session.setdefault("urls", [])
+                session_urls.append(url.id)
+                request.session.modified = True
+
             return redirect("core:home")
     else:
         form = URLCreationForm()
 
     if request.user.is_authenticated:
-        urls = request.user.urls.order_by("-created_at")
+        urls = request.user.urls
     else:
-        urls = [URL.objects.order_by("-created_at").first()]
+        session_urls = request.session.get("urls", [])
+        urls = URL.objects.filter(pk__in=session_urls)
+
+    urls = urls.order_by("-created_at")
 
     return render(
         request,
