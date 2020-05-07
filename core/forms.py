@@ -23,3 +23,10 @@ class URLCreationForm(forms.ModelForm):
         widgets = {
             "target": TextInput,
         }
+
+    def save(self, *args, user=None, **kwargs):
+        """Associate the URL with a user on save."""
+        url = super().save(commit=False)
+        if user is not None and user.is_authenticated:
+            url.created_by = user
+        url.save()

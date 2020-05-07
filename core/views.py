@@ -10,7 +10,7 @@ def home(request):
     if request.method == "POST":
         form = URLCreationForm(request.POST)
         if form.is_valid():
-            form.save()
+            form.save(user=request.user)
             return redirect("core:home")
     else:
         form = URLCreationForm()
