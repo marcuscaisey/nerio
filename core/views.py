@@ -1,4 +1,3 @@
-from django.conf import settings
 from django.db.models import F
 from django.shortcuts import get_object_or_404, redirect, render
 
@@ -32,11 +31,7 @@ def home(request):
 
     urls = urls.order_by("-created_at")
 
-    return render(
-        request,
-        "core/home.html",
-        {"form": form, "urls": urls, "root_url": settings.ROOT_URL},
-    )
+    return render(request, "core/home.html", {"form": form, "urls": urls})
 
 
 def forward_url(request, name):
