@@ -141,7 +141,7 @@ LOGOUT_REDIRECT_URL = "core:home"
 
 # Core
 
-ROOT_URL = "http://nerio.co.uk/"
+ROOT_URL = "http://nerio.co.uk"
 
 
 # Messages

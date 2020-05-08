@@ -34,7 +34,7 @@
 
                   <div class="url-container">
                     <div class="url">
-                      <a href="{% url "core:forward" url.name %}">
+                      <a href="{{ url.get_absolute_url }}">
                         <strong>{{ url.get_absolute_url }}</strong>
                       </a>
                     </div>
