@@ -3,6 +3,7 @@ from django.contrib.messages.views import SuccessMessageMixin
 from django.urls import reverse_lazy
 from django.views.generic import CreateView
 
+from core.models import URL
 from users.forms import AuthenticationForm, UserCreationForm
 
 
@@ -23,3 +24,15 @@ class SignupView(SuccessMessageMixin, CreateView):
     template_name = "users/signup.html"
     success_url = reverse_lazy("users:login")
     success_message = "Your account has been created."
+
+    def form_valid(self, form):
+        """
+        When a user signs up, assign to them all of the URLs which they have
+        already created.
+        """
+        response = super().form_valid(form)
+
+        session_urls = self.request.session.get("urls", [])
+        URL.objects.filter(pk__in=session_urls).update(created_by=self.object)
+
+        return response
