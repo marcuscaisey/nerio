@@ -20,7 +20,7 @@ function displayMessages() {
   const messages = JSON.parse(messagesJSON);
 
   for (const message of messages) {
-    displayNotice(message.message, [message.level_tag]);
+    displayNotice(message.message, message.level_tag);
   }
 }
 
@@ -28,9 +28,9 @@ function displayMessages() {
  * Display a notice by fading it in and then out after some time.
  *
  * @param message The message to display.
- * @param extraClasses An iterable of extra classes to add to the alert div.
+ * @param extraClasses Extra classes to add to the alert div.
  */
-async function displayNotice(message, extraClasses = []) {
+async function displayNotice(message, ...extraClasses) {
   const notice = document.createElement("div");
   notice.classList.add("notice", ...extraClasses);
   notice.append(message);

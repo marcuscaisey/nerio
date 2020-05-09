@@ -18,7 +18,7 @@ function setupCopyButtons() {
       console.log(error);
     }
 
-    displayNotice("URL has been copied.", ["is-success"]);
+    displayNotice("URL has been copied.", "is-success");
   });
 }
 
