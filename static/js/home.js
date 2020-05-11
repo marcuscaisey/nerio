@@ -1,3 +1,5 @@
+import {displayNotice} from "./utils.js";
+
 /*
  * Copy a URL to the clipboard when its copy button is clicked.
  */

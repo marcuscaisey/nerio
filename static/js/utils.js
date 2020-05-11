@@ -1,30 +1,4 @@
 /*
- * Toggle the is-active class on the navbar burger and menu when the navbar
- * burger is clicked.
- */
-function setupNavbarBurger() {
-  const navbarBurger = document.querySelector(".navbar-burger");
-  const navbarMenu = document.querySelector(".navbar-menu");
-
-  navbarBurger.addEventListener("click", () => {
-    navbarBurger.classList.toggle("is-active");
-    navbarMenu.classList.toggle("is-active");
-  });
-}
-
-/*
- * Display the messages passed to the template.
- */
-function displayMessages() {
-  const messagesJSON = document.getElementById("messages").textContent;
-  const messages = JSON.parse(messagesJSON);
-
-  for (const message of messages) {
-    displayNotice(message.message, message.level_tag);
-  }
-}
-
-/*
  * Display a notice by fading it in and then out after some time.
  *
  * @param message The message to display.
@@ -108,5 +82,4 @@ function sleep(duration) {
   return new Promise(resolve => setTimeout(resolve, duration));
 }
 
-setupNavbarBurger();
-displayMessages();
+export {displayNotice};
