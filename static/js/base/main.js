@@ -1,17 +1,18 @@
 import {displayNotice} from "../utils.js";
 
 /*
- * Toggle the is-active class on the navbar burger and menu when the navbar
- * burger is clicked.
+ * When the burger icon is clicked, the menu is shown/hidden.
  */
-function setupNavbarBurger() {
-  const navbarBurger = document.querySelector(".navbar-burger");
-  const navbarMenu = document.querySelector(".navbar-menu");
+class Navbar {
+  burger = document.querySelector(".navbar-burger");
+  menu = document.querySelector(".navbar-menu");
 
-  navbarBurger.addEventListener("click", () => {
-    navbarBurger.classList.toggle("is-active");
-    navbarMenu.classList.toggle("is-active");
-  });
+  constructor() {
+    this.burger.addEventListener("click", () => {
+      this.burger.classList.toggle("is-active");
+      this.menu.classList.toggle("is-active");
+    });
+  }
 }
 
 /*
@@ -26,5 +27,5 @@ function displayMessages() {
   }
 }
 
-setupNavbarBurger();
+new Navbar();
 displayMessages();
