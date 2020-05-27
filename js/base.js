@@ -1,4 +1,4 @@
-import {displayNotice} from "../utils.js";
+import {displayNotice} from "./utils.js";
 
 /*
  * When the burger icon is clicked, the menu is shown/hidden.
