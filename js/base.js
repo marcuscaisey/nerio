@@ -1,17 +1,22 @@
 import {displayNotice} from "./utils.js";
 
 /*
- * When the burger icon is clicked, the menu is shown/hidden.
+ * Navbar with a menu which appears on mobile when the burger icon is clicked.
  */
 class Navbar {
   _burger = document.querySelector(".navbar-burger");
   _menu = document.querySelector(".navbar-menu");
 
   constructor() {
-    this._burger.addEventListener("click", () => {
-      this._burger.classList.toggle("is-active");
-      this._menu.classList.toggle("is-active");
-    });
+    this._burger.addEventListener("click", this._burgerHandler);
+  }
+
+  /*
+   * Toggles the menu and the burger icon.
+   */
+  _burgerHandler() {
+    this._burger.classList.toggle("is-active");
+    this._menu.classList.toggle("is-active");
   }
 }
 
