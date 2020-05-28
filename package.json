@@ -8,7 +8,7 @@
     "sass-watch": "npm run sass -- --watch",
     "webpack": "webpack",
     "webpack-watch": "npm run webpack -- --watch",
-    "webpack-watch-devel": "npm run webpack-watch -- --development"
+    "webpack-watch-devel": "npm run webpack-watch -- --mode development"
   },
   "author": "",
   "license": "ISC",
