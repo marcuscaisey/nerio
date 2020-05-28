@@ -3,7 +3,6 @@ const srcPath = "./js/";
 
 module.exports = {
   mode: "production",
-  watch: true,
   entry: {
     base: srcPath + "base.js",
     home: srcPath + "home.js",
