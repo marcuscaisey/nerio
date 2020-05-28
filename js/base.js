@@ -4,13 +4,13 @@ import {displayNotice} from "./utils.js";
  * When the burger icon is clicked, the menu is shown/hidden.
  */
 class Navbar {
-  burger = document.querySelector(".navbar-burger");
-  menu = document.querySelector(".navbar-menu");
+  _burger = document.querySelector(".navbar-burger");
+  _menu = document.querySelector(".navbar-menu");
 
   constructor() {
-    this.burger.addEventListener("click", () => {
-      this.burger.classList.toggle("is-active");
-      this.menu.classList.toggle("is-active");
+    this._burger.addEventListener("click", () => {
+      this._burger.classList.toggle("is-active");
+      this._menu.classList.toggle("is-active");
     });
   }
 }
