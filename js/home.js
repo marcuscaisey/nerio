@@ -1,18 +1,28 @@
 import {displayNotice} from "./utils.js";
 
 /*
- * Copy a URL to the clipboard when its copy button is clicked.
+ * Box which displays all of the user's shortened urls in rows. Each row has a
+ * copy/rename/delete button associated with each url. The copy button copies
+ * the url to the user's clipboard and the rename/delete buttons open modals
+ * for the user to interact with.
  */
-function setupCopyButtons() {
-  const box = document.getElementById("urls");
+class UrlsBox {
+  _box = document.getElementById("urls");
 
-  box.addEventListener("click", async event => {
-    if (!event.target.classList.contains("copy")) {
+  constructor() {
+    this._box.addEventListener("click", this._copyHandler);
+  }
+
+  /*
+   * Copy the the url associated with the clicked copy button to the clipboard.
+   */
+  async _copyHandler(event) {
+    if (!event.target.classList.contains("copy-button")) {
       return;
     }
 
-    const button = event.target;
-    const url = button.dataset.url;
+    const urlButtons = event.target.parentNode;
+    const url = urlButtons.dataset.url;
 
     try {
       await navigator.clipboard.writeText(url);
@@ -21,7 +31,7 @@ function setupCopyButtons() {
     }
 
     displayNotice("URL has been copied.", "is-success");
-  });
+  }
 }
 
-setupCopyButtons();
+new UrlsBox();
