@@ -37,13 +37,13 @@ class URL(models.Model):
         saved = False
 
         if self.pk is None:
-            self.normalise_target()
-            self.set_title()
+            self._normalise_target()
+            self._set_title()
 
         if not self.name:
             while True:
                 try:
-                    self.set_random_name()
+                    self._set_random_name()
                     super().save(*args, **kwargs)
                     saved = True
                     break
@@ -56,14 +56,14 @@ class URL(models.Model):
     def get_absolute_url(self):
         return settings.ROOT_URL + reverse("core:forward", args=(self.name,))
 
-    def normalise_target(self):
+    def _normalise_target(self):
         """
         Prefix the target with http:// if it doesn't stat with http or https.
         """
         if not re.match(PROTOCOL_PATTERN, self.target):
             self.target = "http://" + self.target
 
-    def set_random_name(self):
+    def _set_random_name(self):
         """
         Set the name to a random combination of two adjectives followed by a
         noun.
@@ -76,7 +76,7 @@ class URL(models.Model):
             ]
         )
 
-    def set_title(self):
+    def _set_title(self):
         """
         Set the title to contents of the title tag of the page that the target
         points to. If this page doesn't have a title, or the GET request to the
