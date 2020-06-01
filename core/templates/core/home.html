@@ -21,52 +21,90 @@
         <div class="column is-8-fullhd is-9-widescreen is-10-desktop is-11-tablet">
           <div id="urls" class="box">
             {% for url in urls %}
-              <div class="url-row">
-                <div class="target-url-container">
-                  <div class="target-title">
-                    <strong>{{ url.title }}</strong>
-                  </div>
-                  <div class="target">
-                    <a class="has-text-grey is-size-7" href="{{ url.target }}">
-                      {{ url.target }}
-                    </a>
-                  </div>
-
-                  <div class="url-container">
-                    <div class="url">
-                      <a href="{{ url.get_absolute_url }}">
-                        <strong>{{ url.get_absolute_url }}</strong>
+              <div class="url-row-container">
+                <div class="url-row" data-url="{{ url.get_absolute_url }}" data-name="{{ url.name }}"
+                     data-endpoint="{% url "core:modify" url.pk %}">
+                  <div class="target-url-container">
+                    <div class="target-title">
+                      <strong>{{ url.title }}</strong>
+                    </div>
+                    <div class="target">
+                      <a class="has-text-grey is-size-7" href="{{ url.target }}">
+                        {{ url.target }}
                       </a>
                     </div>
-                    <div class="url-buttons" data-url="{{ url.get_absolute_url }}">
-                      <button class="button copy-button is-small is-success is-outlined">
-                        Copy
-                      </button>
-                      <a class="button is-small is-info is-outlined">Rename</a>
-                      {% if user.is_authnenticated %}
-                        <a class="button is-small is-danger is-outlined">Delete</a>
-                      {% endif %}
+
+                    <div class="url-buttons-container">
+                      <div class="url-container">
+                        <strong>
+                          <a class="url" href="{{ url.get_absolute_url }}">
+                            {{ url.get_absolute_url }}
+                          </a>
+                        </strong>
+                      </div>
+                      <div class="url-buttons">
+                        <button class="button copy-button is-small is-success is-outlined">
+                          Copy
+                        </button>
+                        <button class="button rename-button is-small is-info is-outlined">
+                          Rename
+                        </button>
+                        <button class="button delete-button is-small is-danger is-outlined">
+                          Delete
+                        </button>
+                      </div>
                     </div>
                   </div>
-                </div>
 
-                <div class="date-visits-container is-hidden-mobile">
-                  <button class="button is-small is-outlined">
-                    {{ url.created_at|date }}
-                  </button>
-                  <button class="button is-small is-outlined">
-                    <span>Visits <strong>{{ url.visits }}</strong></span>
-                  </button>
+                  <div class="date-visits-container is-hidden-mobile">
+                    <button class="button is-small is-outlined">
+                      {{ url.created_at|date }}
+                    </button>
+                    <button class="button is-small is-outlined">
+                      <span>Visits <strong>{{ url.visits }}</strong></span>
+                    </button>
+                  </div>
                 </div>
               </div>
-
-              {% if not forloop.last %}
-                <hr>
-              {% endif %}
             {% endfor %}
           </div>
         </div>
       </div>
     </section>
   {% endif %}
+
+  <div id="rename-modal" class="modal">
+    <div class="modal-background"></div>
+    <div class="modal-content">
+      <div class="box">
+        <div class="field has-addons is-marginless">
+          <div class="control is-expanded">
+            <input id="rename-input" class="input" placeholder="">
+          </div>
+          <div class="control">
+            <button id="rename-confirm-button" class="button is-info">
+              Rename
+            </button>
+          </div>
+        </div>
+        <p id="rename-help" class="help">{{ form.name.help_text }}</p>
+      </div>
+    </div>
+    <button class="modal-close is-large"></button>
+  </div>
+
+  <div id="delete-modal" class="modal">
+    <div class="modal-background"></div>
+    <div class="modal-content">
+      <div class="box has-text-centered">
+        <p>Are you sure that you want to delete this URL?</p>
+        <br>
+        <div class="buttons is-centered">
+          <button id="delete-confirm-button" class="button is-danger">Yes, delete it</button>
+          <button id="delete-cancel-button" class="button">No, keep it</button>
+        </div>
+      </div>
+    </div>
+    <button class="modal-close is-large"></button>
+  </div>
 {% endblock %}

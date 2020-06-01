@@ -26,6 +26,11 @@ $link: $primary;
   text-overflow: ellipsis;
 }
 
+.url-row-container:not(:last-child)::after {
+  @extend hr;
+  content: "";
+}
+
 .url-row {
   display: flex;
   justify-content: space-between;
@@ -46,7 +51,7 @@ $link: $primary;
   color: $grey;
 }
 
-.url-container {
+.url-buttons-container {
   @include tablet {
     display: flex;
     margin-top: 0.5rem;
@@ -55,7 +60,7 @@ $link: $primary;
   justify-content: space-between;
 }
 
-.url {
+.url-container {
   @include truncate;
   @include mobile {
     margin-bottom: 0.5rem;

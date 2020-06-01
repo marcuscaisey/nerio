@@ -1,7 +1,10 @@
+import json
+
 from django.db.models import F
+from django.http import HttpResponseNotAllowed, JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
 
-from .forms import URLCreationForm
+from .forms import URLCreationForm, URLRenamingForm
 from .models import URL
 
 
@@ -39,3 +42,37 @@ def forward_url(request, name):
     url.visits = F("visits") + 1
     url.save()
     return redirect(url.target)
+
+
+def modify(request, pk):
+    allowed_methods = ("PATCH", "DELETE")
+    if request.method not in allowed_methods:
+        return HttpResponseNotAllowed(allowed_methods)
+
+    try:
+        url = URL.objects.get(pk=pk)
+    except URL.DoesNotExist:
+        return JsonResponse({"error": "This URL doesn't exist."}, status=404)
+
+    if (request.user.is_authenticated and request.user != url.created_by) or (
+        not request.user.is_authenticated
+        and url.pk not in request.session.get("urls", [])
+    ):
+        return JsonResponse(
+            {"error": "You don't have permission to modify this URL."}, status=403
+        )
+
+    if request.method == "PATCH":
+        data = json.loads(request.body)
+        form = URLRenamingForm(data, instance=url)
+        if form.is_valid():
+            url = form.save()
+            return JsonResponse(
+                {"name": url.name, "url": url.get_absolute_url()}, status=200
+            )
+        else:
+            return JsonResponse({"error": form.errors["name"][0]}, status=200)
+
+    elif request.method == "DELETE":
+        url.delete()
+        return JsonResponse({}, status=200)
