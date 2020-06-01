@@ -1,6 +1,6 @@
 import {displayNotice} from "./utils.js";
 
-/*
+/**
  * Navbar with a menu which appears on mobile when the burger icon is clicked.
  */
 class Navbar {
@@ -11,7 +11,7 @@ class Navbar {
     this._burger.addEventListener("click", this._burgerHandler);
   }
 
-  /*
+  /**
    * Toggles the menu and the burger icon.
    */
   _burgerHandler() {
@@ -20,7 +20,7 @@ class Navbar {
   }
 }
 
-/*
+/**
  * Display the messages passed to the template.
  */
 function displayMessages() {

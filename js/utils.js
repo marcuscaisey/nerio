@@ -1,6 +1,5 @@
-/*
+/**
  * Display a notice by fading it in and then out after some time.
- *
  * @param message The message to display.
  * @param extraClasses Extra classes to add to the alert div.
  */
@@ -18,13 +17,11 @@ async function displayNotice(message, ...extraClasses) {
   notice.remove();
 }
 
-/*
+/**
  * Fade a DOM element in or out.
- *
  * @param element The element to fade.
  * @param duration The number of ms the fade should take.
  * @param direction The direction of the fade: 1 for fade in, -1 for fade out.
- *
  * @returns A Promise which resolves once the element has finished fading.
  */
 function fade(element, duration, direction) {
@@ -47,35 +44,29 @@ function fade(element, duration, direction) {
   });
 }
 
-/*
+/**
  * Fade a DOM element in.
- *
  * @param element The element to fade.
  * @param duration The number of ms the fade should take.
- *
  * @returns A Promise which resolves once the element has finished fading.
  */
 function fadeIn(element, duration) {
   return fade(element, duration, 1);
 }
 
-/*
+/**
  * Fade a DOM element in.
- *
  * @param element The element to fade.
  * @param duration The number of ms the fade should take.
- *
  * @returns A Promise which resolves once the element has finished fading.
  */
 function fadeOut(element, duration) {
   return fade(element, duration, -1);
 }
 
-/*
+/**
  * Sleep for some time.
- *
  * @param duration Number of milliseconds to sleep for.
- *
  * @returns A Promise which resolves once the sleeping is done.
  */
 function sleep(duration) {
