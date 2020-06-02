@@ -10,7 +10,11 @@ from django.urls import reverse
 from django.utils import timezone
 
 from . import words
-from .validators import URLNameCharacterValidator, validate_url_name_unique
+from .validators import (
+    URLNameCharacterValidator,
+    validate_url_name_doesnt_clash,
+    validate_url_name_unique,
+)
 
 PROTOCOL_PATTERN = r"(?i)^https?://"
 
@@ -20,7 +24,11 @@ class URL(models.Model):
         unique=True,
         max_length=120,
         blank=True,
-        validators=[URLNameCharacterValidator(), validate_url_name_unique],
+        validators=[
+            URLNameCharacterValidator(),
+            validate_url_name_unique,
+            validate_url_name_doesnt_clash,
+        ],
     )
     target = models.TextField()
     title = models.TextField()
