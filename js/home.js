@@ -141,6 +141,18 @@ class Modal {
 
     this.background.addEventListener("click", this.close.bind(this));
     this.closeButton.addEventListener("click", this.close.bind(this));
+    document.addEventListener("keydown", this._escapeHandler.bind(this));
+  }
+
+  /**
+   * Close the modal when the escape key is pressed.
+   * @param event Keydown event.
+   * @private
+   */
+  _escapeHandler(event) {
+    if (event.code === "Escape") {
+      this.close();
+    }
   }
 
   /**
