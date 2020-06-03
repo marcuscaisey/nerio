@@ -135,12 +135,12 @@ class Modal {
    * @param id The ID of the modal div element.
    */
   constructor(id) {
-    this.div = document.getElementById(id);
-    this.background = this.div.querySelector(".modal-background");
-    this.closeButton = this.div.querySelector(".modal-close");
+    this._div = document.getElementById(id);
+    this._background = this._div.querySelector(".modal-background");
+    this._closeButton = this._div.querySelector(".modal-close");
 
-    this.background.addEventListener("click", this.close.bind(this));
-    this.closeButton.addEventListener("click", this.close.bind(this));
+    this._background.addEventListener("click", this.close.bind(this));
+    this._closeButton.addEventListener("click", this.close.bind(this));
     document.addEventListener("keydown", this._escapeHandler.bind(this));
   }
 
@@ -156,17 +156,25 @@ class Modal {
   }
 
   /**
+   * Return whether the modal is open or not.
+   * @returns true or false.
+   */
+  get isOpen() {
+    return this._div.classList.contains("is-active");
+  }
+
+  /**
    * Open the modal.
    */
   open() {
-    this.div.classList.add("is-active");
+    this._div.classList.add("is-active");
   }
 
   /**
    * Close the modal.
    */
   close() {
-    this.div.classList.remove("is-active");
+    this._div.classList.remove("is-active");
   }
 }
 
@@ -185,6 +193,7 @@ class RenameModal extends Modal {
     this._helpText = this._help.textContent;
 
     this._confirmButton.addEventListener("click", this._confirmHandler.bind(this));
+    document.addEventListener("keydown", this._enterHandler.bind(this));
   }
 
   /**
@@ -237,6 +246,17 @@ class RenameModal extends Modal {
   }
 
   /**
+   * Submit the new url name if enter is pressed.
+   * @param event Keydown event.
+   * @private
+   */
+  _enterHandler(event) {
+    if (event.key === "Enter" && this.isOpen) {
+      this._confirmHandler();
+    }
+  }
+
+  /**
    * Set the error message.
    */
   set _error(value) {
@@ -272,6 +292,7 @@ class DeleteModal extends Modal {
 
     this._confirmButton.addEventListener("click", this._confirmHandler.bind(this));
     this._cancelButton.addEventListener("click", this.close.bind(this));
+    document.addEventListener("keydown", this._enterHandler.bind(this));
   }
 
   /**
@@ -318,6 +339,17 @@ class DeleteModal extends Modal {
     }
 
     this.close();
+  }
+
+  /**
+   * Delete the url if enter is pressed.
+   * @param event Keydown event.
+   * @private
+   */
+  _enterHandler(event) {
+    if (event.key === "Enter" && this.isOpen) {
+      this._confirmHandler();
+    }
   }
 }
 
