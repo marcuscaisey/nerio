@@ -139,11 +139,6 @@ LOGIN_REDIRECT_URL = "core:home"
 LOGOUT_REDIRECT_URL = "core:home"
 
 
-# Core
-
-ROOT_URL = "http://nerio.co.uk"
-
-
 # Messages
 
 MESSAGE_TAGS = {

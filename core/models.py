@@ -3,10 +3,8 @@ import re
 
 import bs4
 import requests
-from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.db import IntegrityError, models
-from django.urls import reverse
 from django.utils import timezone
 
 from . import words
@@ -63,9 +61,6 @@ class URL(models.Model):
 
         if not saved:
             super().save(*args, **kwargs)
-
-    def get_absolute_url(self):
-        return settings.ROOT_URL + reverse("core:forward", args=(self.name,))
 
     def _normalise_target(self):
         """

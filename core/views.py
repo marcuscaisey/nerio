@@ -4,6 +4,7 @@ from django.contrib import messages
 from django.db.models import F
 from django.http import HttpResponseNotAllowed, JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
+from django.urls import reverse
 
 from .forms import URLCreationForm, URLRenamingForm
 from .models import URL
@@ -87,7 +88,7 @@ def modify(request, pk):
         If successful, the response will be as follows:
         {
             "name" "new name for url",
-            "url": "new shortened url",
+            "url": "new shortened url in absolute form",
         }
 
         If an error occurs when saving the new name, the error message will be
@@ -119,8 +120,10 @@ def modify(request, pk):
         form = URLRenamingForm(data, instance=url)
         if form.is_valid():
             url = form.save()
+            root_url = f"{request.scheme}://{request.get_host()}"
+            url_path = reverse("core:forward", args=(url.name,))
             return JsonResponse(
-                {"name": url.name, "url": url.get_absolute_url()}, status=200
+                {"name": url.name, "url": f"{root_url}{url_path}"}, status=200
             )
         else:
             return JsonResponse({"error": form.errors["name"][0]}, status=200)

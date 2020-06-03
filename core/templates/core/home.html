@@ -22,7 +22,9 @@
           <div id="urls" class="box">
             {% for url in urls %}
               <div class="url-row-container">
-                <div class="url-row" data-url="{{ url.get_absolute_url }}" data-name="{{ url.name }}"
+                <div class="url-row"
+                     data-url="{{ request.scheme }}://{{ request.get_host }}{% url "core:forward" url.name %}"
+                     data-name="{{ url.name }}"
                      data-endpoint="{% url "core:modify" url.pk %}">
                   <div class="target-url-container">
                     <div class="target-title">
@@ -37,8 +39,8 @@
                     <div class="url-buttons-container">
                       <div class="url-container">
                         <strong>
-                          <a class="url" href="{{ url.get_absolute_url }}">
-                            {{ url.get_absolute_url }}
+                          <a class="url" href="{% url "core:forward" url.name %}">
+                            {{ request.scheme }}://{{ request.get_host }}{% url "core:forward" url.name %}
                           </a>
                         </strong>
                       </div>
