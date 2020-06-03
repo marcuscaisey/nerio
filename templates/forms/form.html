@@ -1,4 +1,5 @@
 {% load widget_tweaks %}
+{% load forms %}
 
 {% for error in form.non_field_errors %}
   <p class="notification is-danger is-light has-text-centered">{{ error }}</p>
@@ -12,7 +13,7 @@
       <label for="{{ field.field.id_for_label }}" class="label">{{ field.label }}</label>
 
       <div class="control">
-        {{ field|add_class:"input"|add_error_class:"is-danger" }}
+        {{ field|add_class:"input"|add_error_class:"is-danger"|tabindex:forloop.counter }}
       </div>
 
       {% if field.errors %}
