@@ -1,5 +1,6 @@
 import json
 
+from django.contrib import messages
 from django.db.models import F
 from django.http import HttpResponseNotAllowed, JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
@@ -33,6 +34,8 @@ def home(request):
                 session_urls = request.session.setdefault("urls", [])
                 session_urls.append(url.id)
                 request.session.modified = True
+
+            messages.success(request, "URL has been shortened.")
 
             return redirect("core:home")
     else:
