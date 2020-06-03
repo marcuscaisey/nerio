@@ -207,6 +207,7 @@ class RenameModal extends Modal {
     this._input.placeholder = urlRow.dataset.name;
     this._resetHelpText();
     super.open();
+    this._input.focus();
   }
 
   /**
