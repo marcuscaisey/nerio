@@ -8,7 +8,7 @@ class Navbar {
   _menu = document.querySelector(".navbar-menu");
 
   constructor() {
-    this._burger.addEventListener("click", this._burgerHandler);
+    this._burger.addEventListener("click", this._burgerHandler.bind(this));
   }
 
   /**
