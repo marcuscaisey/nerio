@@ -282,6 +282,7 @@ class RenameModal extends Modal {
 class DeleteModal extends Modal {
   _confirmButton = document.querySelector("#delete-confirm-button");
   _cancelButton = document.querySelector("#delete-cancel-button");
+  _url = document.querySelector("#delete-url");
 
   /**
    * @param urlsBox The urls box associated with the modal.
@@ -303,6 +304,8 @@ class DeleteModal extends Modal {
    */
   open(urlRow) {
     this._urlRow = urlRow;
+    this._url.textContent = urlRow.dataset.url;
+    this._url.href = urlRow.dataset.url;
     super.open();
   }
 
