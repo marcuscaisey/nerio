@@ -3,12 +3,11 @@ from django.contrib.auth import get_user_model
 
 
 class AuthenticationForm(auth_forms.AuthenticationForm):
-    error_messages = {
-        "invalid_login": (
-            "The %(username)s and password provided do not match any of our records."
-        ),
-        "inactive": "This account is inactive.",
-    }
+    def __init__(self, *args, **kwargs):
+        self.error_messages[
+            "invalid_login"
+        ] = "The %(username)s and password provided do not match any of our records."
+        super().__init__(*args, **kwargs)
 
 
 class UserCreationForm(auth_forms.UserCreationForm):
