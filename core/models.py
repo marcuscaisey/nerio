@@ -37,15 +37,19 @@ class URL(models.Model):
     title = models.TextField()
     created_by = models.ForeignKey(
         get_user_model(),
+        verbose_name="creator",
         on_delete=models.DO_NOTHING,
         related_name="urls",
         related_query_name="url",
         blank=True,
         null=True,
     )
-    created_at = models.DateTimeField(default=timezone.now)
-    is_active = models.BooleanField(default=True)
+    created_at = models.DateTimeField("created date", default=timezone.now)
+    is_active = models.BooleanField("active", default=True)
     visits = models.PositiveIntegerField(default=0)
+
+    def __str__(self):
+        return self.name
 
     def save(self, *args, **kwargs):
         saved = False
