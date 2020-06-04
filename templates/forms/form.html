@@ -24,7 +24,7 @@
         </ul>
       {% else %}
         <div class="help">
-          {{ field.help_text }}
+          {{ field.help_text|safe }}
         </div>
       {% endif %}
     </div>
