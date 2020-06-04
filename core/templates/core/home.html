@@ -60,7 +60,7 @@
 
                   <div class="date-visits-container is-hidden-mobile">
                     <button class="button is-small is-outlined">
-                      {{ url.created_at|date }}
+                      {{ url.created_at|date:"N j, Y" }}
                     </button>
                     <button class="button is-small is-outlined">
                       <span>Visits <strong>{{ url.visits }}</strong></span>
