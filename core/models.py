@@ -27,6 +27,11 @@ class URL(models.Model):
             validate_url_name_unique,
             validate_url_name_doesnt_clash,
         ],
+        help_text="This will be randomly generated, if left empty.",
+        error_messages={
+            "unique": "This name has already been taken.",
+            "max_length": "Names must be no longer than %(limit_value)s characters.",
+        },
     )
     target = models.TextField()
     title = models.TextField()
