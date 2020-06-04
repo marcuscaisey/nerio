@@ -148,3 +148,14 @@ MESSAGE_TAGS = {
     messages.WARNING: "is-warning",
     messages.ERROR: "is-danger",
 }
+
+
+# Email
+
+EMAIL_HOST = os.getenv("NERIO_EMAIL_HOST")
+EMAIL_PORT = os.getenv("NERIO_EMAIL_PORT")
+EMAIL_HOST_USER = os.getenv("NERIO_EMAIL_HOST_USER")
+EMAIL_HOST_PASSWORD = os.getenv("NERIO_EMAIL_HOST_PASSWORD")
+EMAIL_USE_TLS = bool(int(os.getenv("NERIO_EMAIL_USE_TLS", 0)))
+EMAIL_USE_SSL = bool(int(os.getenv("NERIO_EMAIL_USE_SSL", 0)))
+DEFAULT_FROM_EMAIL = os.getenv("NERIO_DEFAULT_FROM_EMAIL")
