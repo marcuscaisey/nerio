@@ -25,11 +25,12 @@ def _list_display(short_description=None, admin_order_field=None):
 def _user_link(obj):
     """Return a link to the user who created a url."""
     user = obj.created_by
-    return format_html(
-        "<a href='{url}'>{username}</a>",
-        url=reverse("admin:users_user_change", kwargs={"object_id": user.pk}),
-        username=getattr(user, user.USERNAME_FIELD),
-    )
+    if user is not None:
+        return format_html(
+            "<a href='{url}'>{username}</a>",
+            url=reverse("admin:users_user_change", kwargs={"object_id": user.pk}),
+            username=getattr(user, user.USERNAME_FIELD),
+        )
 
 
 @register(URL)
