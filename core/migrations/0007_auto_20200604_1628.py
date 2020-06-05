@@ -18,9 +18,7 @@ class Migration(migrations.Migration):
             field=models.CharField(
                 blank=True,
                 error_messages={
-                    "max_length": (
-                        "Names must be no longer than %(limit_value)s characters."
-                    ),
+                    "max_length": ("Names must be no longer than %(limit_value)s characters."),
                     "unique": "This name has already been taken.",
                 },
                 help_text="This will be randomly generated, if left empty.",

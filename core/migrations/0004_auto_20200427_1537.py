@@ -16,10 +16,7 @@ class Migration(migrations.Migration):
             model_name="url",
             name="name",
             field=models.CharField(
-                blank=True,
-                max_length=120,
-                unique=True,
-                validators=[core.validators.URLNameCharacterValidator()],
+                blank=True, max_length=120, unique=True, validators=[core.validators.URLNameCharacterValidator()],
             ),
         ),
     ]

@@ -18,11 +18,8 @@ class User(auth_models.AbstractUser):
         "username",
         max_length=150,
         unique=True,
-        help_text=("150 characters or fewer. Letters, digits, and underscores only."),
-        validators=[
-            UsernameCharactersValidator(),
-            validate_username_case_insensitive_unique,
-        ],
+        help_text="150 characters or fewer. Letters, digits, and underscores only.",
+        validators=[UsernameCharactersValidator(), validate_username_case_insensitive_unique],
         error_messages={"unique": "A user with that username already exists."},
     )
 

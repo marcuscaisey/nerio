@@ -10,7 +10,5 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.AlterField(
-            model_name="url", name="title", field=models.TextField(blank=True)
-        ),
+        migrations.AlterField(model_name="url", name="title", field=models.TextField(blank=True)),
     ]

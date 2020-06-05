@@ -116,12 +116,9 @@ def modify(request, pk):
         return JsonResponse({"error": "This URL doesn't exist."}, status=404)
 
     if (request.user.is_authenticated and request.user != url.created_by) or (
-        not request.user.is_authenticated
-        and url.pk not in request.session.get("urls", [])
+        not request.user.is_authenticated and url.pk not in request.session.get("urls", [])
     ):
-        return JsonResponse(
-            {"error": "You don't have permission to modify this URL."}, status=403
-        )
+        return JsonResponse({"error": "You don't have permission to modify this URL."}, status=403)
 
     if request.method == "PATCH":
         data = json.loads(request.body)
@@ -135,9 +132,7 @@ def modify(request, pk):
 
             root_url = f"{request.scheme}://{request.get_host()}"
             url_path = reverse("core:forward", args=(url.name,))
-            return JsonResponse(
-                {"name": url.name, "url": f"{root_url}{url_path}"}, status=200
-            )
+            return JsonResponse({"name": url.name, "url": f"{root_url}{url_path}"}, status=200)
 
         else:
             return JsonResponse({"error": form.errors["name"][0]}, status=200)

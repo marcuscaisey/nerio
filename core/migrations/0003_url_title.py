@@ -11,9 +11,6 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.AddField(
-            model_name="url",
-            name="title",
-            field=models.TextField(default=""),
-            preserve_default=False,
+            model_name="url", name="title", field=models.TextField(default=""), preserve_default=False,
         ),
     ]

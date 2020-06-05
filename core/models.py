@@ -66,19 +66,8 @@ class URL(models.Model):
         if self.name:
             self._random_name_required = False
             self.name_lower = self.name.lower()
-            if (
-                URL.objects.filter(name_lower=self.name_lower)
-                .exclude(pk=self.pk)
-                .count()
-                > 0
-            ):
-                raise ValidationError(
-                    {
-                        "name": ValidationError(
-                            "This name has already been taken.", code="unique"
-                        )
-                    }
-                )
+            if URL.objects.filter(name_lower=self.name_lower).exclude(pk=self.pk).count() > 0:
+                raise ValidationError({"name": ValidationError("This name has already been taken.", code="unique")})
         else:
             self._random_name_required = True
             self._set_random_name()
@@ -95,13 +84,7 @@ class URL(models.Model):
         Set the name to a random combination of two adjectives followed by a
         noun.
         """
-        self.name = "".join(
-            word.title()
-            for word in [
-                *random.sample(words.ADJECTIVES, 2),
-                random.choice(words.NOUNS),
-            ]
-        )
+        self.name = "".join(word.title() for word in [*random.sample(words.ADJECTIVES, 2), random.choice(words.NOUNS)])
         self.name_lower = self.name.lower()
 
     def _set_title(self):

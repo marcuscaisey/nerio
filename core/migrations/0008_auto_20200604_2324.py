@@ -17,9 +17,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name="url",
             name="created_at",
-            field=models.DateTimeField(
-                default=django.utils.timezone.now, verbose_name="created date"
-            ),
+            field=models.DateTimeField(default=django.utils.timezone.now, verbose_name="created date"),
         ),
         migrations.AlterField(
             model_name="url",
@@ -35,8 +33,6 @@ class Migration(migrations.Migration):
             ),
         ),
         migrations.AlterField(
-            model_name="url",
-            name="is_active",
-            field=models.BooleanField(default=True, verbose_name="active"),
+            model_name="url", name="is_active", field=models.BooleanField(default=True, verbose_name="active"),
         ),
     ]
