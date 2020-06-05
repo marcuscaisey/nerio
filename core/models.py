@@ -30,7 +30,7 @@ class URL(models.Model):
     )
     name_lower = models.CharField(unique=True, max_length=120, blank=True)
     target = models.TextField()
-    title = models.TextField()
+    title = models.TextField(blank=True)
     created_by = models.ForeignKey(
         get_user_model(),
         verbose_name="creator",
