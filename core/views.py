@@ -61,7 +61,7 @@ def home(request):
     return render(request, "core/home.html", {"form": form, "urls": urls})
 
 
-def forward_url(request, name):
+def forward(request, name):
     """
     Forward the user to the target of the url with the given name and increment
     its visit count by 1. Return a 404 if a url with the given name doesn't
