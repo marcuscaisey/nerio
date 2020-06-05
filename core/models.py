@@ -4,6 +4,7 @@ import re
 import bs4
 import requests
 from django.contrib.auth import get_user_model
+from django.core.exceptions import ValidationError
 from django.db import IntegrityError, models
 from django.utils import timezone
 
@@ -11,7 +12,6 @@ from . import words
 from .validators import (
     URLNameCharacterValidator,
     validate_url_name_doesnt_clash,
-    validate_url_name_unique,
 )
 
 PROTOCOL_PATTERN = r"(?i)^https?://"
@@ -19,20 +19,16 @@ PROTOCOL_PATTERN = r"(?i)^https?://"
 
 class URL(models.Model):
     name = models.CharField(
-        unique=True,
         max_length=120,
         blank=True,
-        validators=[
-            URLNameCharacterValidator(),
-            validate_url_name_unique,
-            validate_url_name_doesnt_clash,
-        ],
+        validators=[URLNameCharacterValidator(), validate_url_name_doesnt_clash],
         help_text="This will be randomly generated, if left empty.",
         error_messages={
             "unique": "This name has already been taken.",
             "max_length": "Names must be no longer than %(limit_value)s characters.",
         },
     )
+    name_lower = models.CharField(unique=True, max_length=120, blank=True)
     target = models.TextField()
     title = models.TextField()
     created_by = models.ForeignKey(
@@ -67,10 +63,25 @@ class URL(models.Model):
             self._normalise_target()
             self._set_title()
 
-        self._random_name_required = False
-        if not self.name:
-            self._set_random_name()
+        if self.name:
+            self._random_name_required = False
+            self.name_lower = self.name.lower()
+            if (
+                URL.objects.filter(name_lower=self.name_lower)
+                .exclude(pk=self.pk)
+                .count()
+                > 0
+            ):
+                raise ValidationError(
+                    {
+                        "name": ValidationError(
+                            "This name has already been taken.", code="unique"
+                        )
+                    }
+                )
+        else:
             self._random_name_required = True
+            self._set_random_name()
 
     def _normalise_target(self):
         """
@@ -91,6 +102,7 @@ class URL(models.Model):
                 random.choice(words.NOUNS),
             ]
         )
+        self.name_lower = self.name.lower()
 
     def _set_title(self):
         """

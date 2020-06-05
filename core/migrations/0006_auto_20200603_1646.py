@@ -21,7 +21,6 @@ class Migration(migrations.Migration):
                 unique=True,
                 validators=[
                     core.validators.URLNameCharacterValidator(),
-                    core.validators.validate_url_name_unique,
                     core.validators.validate_url_name_doesnt_clash,
                 ],
             ),
