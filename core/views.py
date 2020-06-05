@@ -1,6 +1,7 @@
 import json
 
 from django.contrib import messages
+from django.db import IntegrityError
 from django.db.models import F
 from django.http import HttpResponseNotAllowed, JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
@@ -21,24 +22,31 @@ def home(request):
         Process the form data from a submitted url creation form. If the form is
         valid, redirect back to the home view. If not, then process the request
         as if it was a GET, replacing the empty url creation form with the
-        current invalid form.
+        current invalid form. If a form is valid but then fails to save (two
+        users save urls with the same name), return the form with errors as if
+        it had been invalid to begin with.
     """
     if request.method == "POST":
         form = URLCreationForm(request.POST)
         if form.is_valid():
+            url = form.save(commit=False)
+
             if request.user.is_authenticated:
-                url = form.save(commit=False)
                 url.created_by = request.user
+
+            try:
                 url.save()
+            except IntegrityError:
+                form = URLCreationForm(request.POST)
             else:
-                url = form.save()
-                session_urls = request.session.setdefault("urls", [])
-                session_urls.append(url.id)
-                request.session.modified = True
+                if not request.user.is_authenticated:
+                    session_urls = request.session.setdefault("urls", [])
+                    session_urls.append(url.id)
+                    request.session.modified = True
 
-            messages.success(request, "URL has been shortened.")
+                messages.success(request, "URL has been shortened.")
 
-            return redirect("core:home")
+                return redirect("core:home")
     else:
         form = URLCreationForm()
 
