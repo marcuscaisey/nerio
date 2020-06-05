@@ -127,12 +127,18 @@ def modify(request, pk):
         data = json.loads(request.body)
         form = URLRenamingForm(data, instance=url)
         if form.is_valid():
-            url = form.save()
+            try:
+                url = form.save()
+            except IntegrityError:
+                form = URLRenamingForm(data)
+                return JsonResponse({"error": form.errors["name"][0]}, status=200)
+
             root_url = f"{request.scheme}://{request.get_host()}"
             url_path = reverse("core:forward", args=(url.name,))
             return JsonResponse(
                 {"name": url.name, "url": f"{root_url}{url_path}"}, status=200
             )
+
         else:
             return JsonResponse({"error": form.errors["name"][0]}, status=200)
 
