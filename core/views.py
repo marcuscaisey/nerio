@@ -67,7 +67,7 @@ def forward(request, name):
     its visit count by 1. Return a 404 if a url with the given name doesn't
     exist.
     """
-    url = get_object_or_404(URL, name=name)
+    url = get_object_or_404(URL, name_lower=name.lower())
     url.visits = F("visits") + 1
     url.save()
     return redirect(url.target)
