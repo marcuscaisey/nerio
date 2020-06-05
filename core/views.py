@@ -56,7 +56,7 @@ def home(request):
         session_urls = request.session.get("urls", [])
         urls = URL.objects.filter(pk__in=session_urls)
 
-    urls = urls.order_by("-created_at")
+    urls = urls.exclude(is_active=False).order_by("-created_at")
 
     return render(request, "core/home.html", {"form": form, "urls": urls})
 
@@ -138,5 +138,6 @@ def modify(request, pk):
             return JsonResponse({"error": form.errors["name"][0]}, status=200)
 
     elif request.method == "DELETE":
-        url.delete()
+        url.is_active = False
+        url.save()
         return JsonResponse({}, status=200)
