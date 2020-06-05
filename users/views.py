@@ -4,6 +4,7 @@ from django.urls import reverse_lazy
 from django.views.generic import CreateView
 
 from core.models import URL
+from helpers.forms import ModelFormIntegrityMixin
 from users.forms import AuthenticationForm, UserCreationForm
 
 
@@ -37,7 +38,7 @@ class PasswordResetConfirmView(
     success_message = "Your password has been reset."
 
 
-class SignupView(SuccessMessageMixin, CreateView):
+class SignupView(ModelFormIntegrityMixin, SuccessMessageMixin, CreateView):
     form_class = UserCreationForm
     template_name = "users/signup.html"
     success_url = reverse_lazy("users:login")
