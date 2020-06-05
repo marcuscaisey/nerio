@@ -52,24 +52,25 @@ class URL(models.Model):
         return self.name
 
     def save(self, *args, **kwargs):
-        saved = False
+        while True:
+            try:
+                super().save(*args, **kwargs)
+                return
+            except IntegrityError:
+                if self._random_name_required:
+                    self._set_random_name()
+                else:
+                    raise
 
+    def clean(self):
         if self.pk is None:
             self._normalise_target()
             self._set_title()
 
+        self._random_name_required = False
         if not self.name:
-            while True:
-                try:
-                    self._set_random_name()
-                    super().save(*args, **kwargs)
-                    saved = True
-                    break
-                except IntegrityError:
-                    pass
-
-        if not saved:
-            super().save(*args, **kwargs)
+            self._set_random_name()
+            self._random_name_required = True
 
     def _normalise_target(self):
         """
