@@ -2,8 +2,6 @@
 
 from django.db import migrations, models
 
-import users.validators
-
 
 class Migration(migrations.Migration):
 
@@ -20,10 +18,7 @@ class Migration(migrations.Migration):
                 help_text=("150 characters or fewer. Letters, digits, and underscores only."),
                 max_length=150,
                 unique=True,
-                validators=[
-                    users.validators.UsernameCharactersValidator(),
-                    users.validators.validate_username_case_insensitive_unique,
-                ],
+                validators=[],
                 verbose_name="username",
             ),
         ),

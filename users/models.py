@@ -1,26 +1,24 @@
 from django.contrib.auth import models as auth_models
 from django.db import models
 
-from .validators import (
-    UsernameCharactersValidator,
-    validate_username_case_insensitive_unique,
-)
-
 
 class UserManager(auth_models.UserManager):
     def get_by_natural_key(self, username):
         """Ignore case when querying by username."""
         return self.get(**{f"{self.model.USERNAME_FIELD}__iexact": username})
 
+    @classmethod
+    def normalize_email(cls, email):
+        """Normalize the email address by lowercasing it."""
+        return email.lower()
+
 
 class User(auth_models.AbstractUser):
-    username = models.CharField(
-        "username",
-        max_length=150,
-        unique=True,
-        help_text="150 characters or fewer. Letters, digits, and underscores only.",
-        validators=[UsernameCharactersValidator(), validate_username_case_insensitive_unique],
-        error_messages={"unique": "A user with that username already exists."},
+    email = models.EmailField(
+        "email address", unique=True, error_messages={"unique": "A user with that email already exists."}
     )
 
     objects = UserManager()
+
+    USERNAME_FIELD = "email"
+    REQUIRED_FIELDS = []
