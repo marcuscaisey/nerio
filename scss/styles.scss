@@ -93,6 +93,7 @@ $link: $primary;
 .notice {
   @extend .notification;
   max-width: 300px;
+  display: table;
 
   &:not(:last-child) {
     margin-bottom: 1rem;
