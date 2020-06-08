@@ -370,4 +370,6 @@ function csrfToken() {
   }
 }
 
-new UrlsBox(RenameModal, DeleteModal);
+if (document.querySelector("#urls")) {
+  new UrlsBox(RenameModal, DeleteModal);
+}
