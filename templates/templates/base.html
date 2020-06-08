@@ -10,9 +10,7 @@
   <link rel="stylesheet" href="{% static "css/styles.css" %}">
   <script src="{% static "js/base.js" %}" defer></script>
   {% block scripts %}{% endblock %}
-  <title>
-    Nerio | A simple URL shortener
-  </title>
+  <title>Nerio | A simple URL shortener</title>
 </head>
 
 <body class="has-navbar-fixed-top">
@@ -33,67 +31,41 @@
 
     <div class="navbar-menu">
       <div class="navbar-start is-hidden-desktop">
-        <a href="{% url "core:home" %}" class="navbar-item">
-          Home
-        </a>
+        <a href="{% url "core:home" %}" class="navbar-item">Home</a>
 
         {% if user.is_authenticated %}
           <div class="navbar-item has-dropdown is-hoverable">
-            <div class="navbar-link">
-              Edit account
-            </div>
+            <div class="navbar-link">Edit account</div>
             <div class="navbar-dropdown">
-              <a href="{% url "users:email-change" %}" class="navbar-item">
-                Change email
-              </a>
-              <a href="{% url "users:password-change" %}" class="navbar-item">
-                Change password
-              </a>
+              <a href="{% url "users:email-change" %}" class="navbar-item">Change email</a>
+              <a href="{% url "users:password-change" %}" class="navbar-item">Change password</a>
             </div>
           </div>
-          <a href="{% url "users:logout" %}" class="navbar-item">
-            Log out
-          </a>
+          <a href="{% url "users:logout" %}" class="navbar-item">Log out</a>
 
         {% else %}
-          <a href="{% url "users:login" %}" class="navbar-item">
-            Log in
-          </a>
-          <a href="{% url "users:signup" %}" class="navbar-item">
-            Sign up
-          </a>
+          <a href="{% url "users:login" %}" class="navbar-item">Log in</a>
+          <a href="{% url "users:signup" %}" class="navbar-item">Sign up</a>
         {% endif %}
       </div>
 
       <div class="navbar-end is-hidden-touch">
         {% if user.is_authenticated %}
           <div class="navbar-item has-dropdown is-hoverable">
-            <div class="navbar-link">
-              Edit account
-            </div>
+            <div class="navbar-link">Edit account</div>
             <div class="navbar-dropdown">
-              <a href="{% url "users:email-change" %}" class="navbar-item">
-                Change email
-              </a>
-              <a href="{% url "users:password-change" %}" class="navbar-item">
-                Change password
-              </a>
+              <a href="{% url "users:email-change" %}" class="navbar-item">Change email</a>
+              <a href="{% url "users:password-change" %}" class="navbar-item">Change password</a>
             </div>
           </div>
           <div class="navbar-item">
-            <a href="{% url "users:logout" %}" class="button is-primary">
-              Log out
-            </a>
+            <a href="{% url "users:logout" %}" class="button is-primary">Log out</a>
           </div>
 
         {% else %}
           <div class="navbar-item buttons">
-            <a href="{% url "users:login" %}" class="button is-primary">
-              Log in
-            </a>
-            <a href="{% url "users:signup" %}" class="button is-primary is-outlined">
-              Sign up
-            </a>
+            <a href="{% url "users:login" %}" class="button is-primary">Log in</a>
+            <a href="{% url "users:signup" %}" class="button is-primary is-outlined">Sign up</a>
           </div>
         {% endif %}
       </div>

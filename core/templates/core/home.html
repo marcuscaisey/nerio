@@ -31,9 +31,7 @@
                       <strong>{{ url.title }}</strong>
                     </div>
                     <div class="target">
-                      <a class="has-text-grey is-size-7" href="{{ url.target }}">
-                        {{ url.target }}
-                      </a>
+                      <a class="has-text-grey is-size-7" href="{{ url.target }}">{{ url.target }}</a>
                     </div>
 
                     <div class="url-buttons-container">
@@ -45,23 +43,15 @@
                         </strong>
                       </div>
                       <div class="url-buttons">
-                        <button class="button copy-button is-small is-success is-outlined">
-                          Copy
-                        </button>
-                        <button class="button rename-button is-small is-info is-outlined">
-                          Rename
-                        </button>
-                        <button class="button delete-button is-small is-danger is-outlined">
-                          Delete
-                        </button>
+                        <button class="button copy-button is-small is-success is-outlined">Copy</button>
+                        <button class="button rename-button is-small is-info is-outlined">Rename</button>
+                        <button class="button delete-button is-small is-danger is-outlined">Delete</button>
                       </div>
                     </div>
                   </div>
 
                   <div class="date-visits-container is-hidden-mobile">
-                    <button class="button is-small is-outlined">
-                      {{ url.created_at|date:"N j, Y" }}
-                    </button>
+                    <button class="button is-small is-outlined">{{ url.created_at|date:"N j, Y" }}</button>
                     <button class="button is-small is-outlined">
                       <span>Visits <strong>{{ url.visits }}</strong></span>
                     </button>
@@ -84,9 +74,7 @@
             <input id="rename-input" class="input" placeholder="">
           </div>
           <div class="control">
-            <button id="rename-confirm-button" class="button is-info">
-              Rename
-            </button>
+            <button id="rename-confirm-button" class="button is-info">Rename</button>
           </div>
         </div>
         <p id="rename-help" class="help">{{ form.name.help_text }}</p>
