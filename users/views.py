@@ -1,11 +1,24 @@
+from django.contrib.auth import get_user_model
 from django.contrib.auth import views as auth_views
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.urls import reverse_lazy
-from django.views.generic import CreateView
+from django.views.generic import CreateView, UpdateView
 
 from core.models import URL
 from helpers.forms import ModelFormIntegrityMixin
 from users.forms import AuthenticationForm, UserCreationForm
+
+
+class EmailChangeView(SuccessMessageMixin, ModelFormIntegrityMixin, LoginRequiredMixin, UpdateView):
+    model = get_user_model()
+    fields = ("email",)
+    template_name = "users/email_change.html"
+    success_url = reverse_lazy("core:home")
+    success_message = "Your email has been changed."
+
+    def get_object(self, queryset=None):
+        return self.request.user
 
 
 class LoginView(auth_views.LoginView):
