@@ -3,7 +3,7 @@ import json
 from django.contrib import messages
 from django.core.paginator import Paginator
 from django.db import IntegrityError
-from django.db.models import F
+from django.db.models import F, Q
 from django.http import HttpResponseNotAllowed, JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
@@ -20,9 +20,12 @@ def home(request):
         Context:
             - form: An unbound URLCreationForm instance.
             - page: A Page from the url Paginator.
+            - search_term: The currently active search term.
 
-        Parameters:
+        Query String Parameters:
             - page: The page number to display.
+            - search: A search term to filter urls by name, target, and title
+              with.
 
     POST
         Process the form data from a submitted URLCreationForm.
@@ -66,12 +69,22 @@ def home(request):
         session_urls = request.session.get("urls", [])
         urls = URL.objects.filter(pk__in=session_urls)
 
-    urls = urls.exclude(is_active=False).order_by("-created_at")
+    search_term = request.GET.get("search", "")
+
+    urls = (
+        urls.exclude(is_active=False)
+        .filter(
+            Q(name_lower__contains=search_term.lower())
+            | Q(target__icontains=search_term)
+            | Q(title__icontains=search_term)
+        )
+        .order_by("-created_at")
+    )
 
     paginator = Paginator(urls, 5)
     page = paginator.get_page(request.GET.get("page"))
 
-    return render(request, "core/home.html", {"form": form, "page": page})
+    return render(request, "core/home.html", {"form": form, "page": page, "search_term": search_term})
 
 
 def forward(request, name):

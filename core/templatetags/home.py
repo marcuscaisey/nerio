@@ -1,4 +1,5 @@
 from django.template import Library
+from django.utils.http import urlencode
 
 register = Library()
 
@@ -43,3 +44,11 @@ def pagination_page_numbers(current_page):
     page_numbers.extend(range(begin, end + 1))
 
     return sorted(page_numbers)
+
+
+@register.simple_tag(takes_context=True)
+def update_query_string(context, **kwargs):
+    """Return the current query string updated with the provided kwargs."""
+    parameters = dict(context["request"].GET.items())
+    parameters.update(kwargs)
+    return "?" + urlencode(parameters)
