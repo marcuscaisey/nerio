@@ -14,8 +14,11 @@ class ModelFormIntegrityMixin:
     """
     To be used in conjunction with the ModelFormMixin. Returns the model form
     filled with errors if an IntegrityError is raised whilst saving the
-    associated instance. This is a solution to the following problem which is
-    caused by a race condition when saving the form:
+    associated instance. This class must appear before any other class in the
+    inheritance chain which defines a form_valid method.
+
+    This is a solution to the following problem which is caused by a race
+    condition when saving the form:
 
     1. We have the following model and model form:
 
@@ -44,7 +47,7 @@ class ModelFormIntegrityMixin:
             return self.form_invalid(form)
 
 
-class EmailChangeView(SuccessMessageMixin, ModelFormIntegrityMixin, LoginRequiredMixin, UpdateView):
+class EmailChangeView(ModelFormIntegrityMixin, SuccessMessageMixin, LoginRequiredMixin, UpdateView):
     model = get_user_model()
     fields = ("email",)
     template_name = "users/email_change.html"
