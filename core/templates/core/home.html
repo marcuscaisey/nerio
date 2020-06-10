@@ -1,6 +1,7 @@
 {% extends "templates/base.html" %}
 
 {% load static %}
+{% load home %}
 
 {% block scripts %}
   <script src="{% static "js/home.js" %}" defer></script>
@@ -15,12 +16,12 @@
 {% endblock %}
 
 {% block post-hero %}
-  {% if urls %}
+  {% if page.object_list %}
     <section class="section container">
       <div class="columns is-centered">
         <div class="column is-8-fullhd is-9-widescreen is-10-desktop is-11-tablet">
           <div id="urls" class="box">
-            {% for url in urls %}
+            {% for url in page.object_list %}
               <div class="url-row-container">
                 <div class="url-row"
                      data-url="{{ request.scheme }}://{{ request.get_host }}{% url "core:forward" url.name %}"
@@ -60,6 +61,32 @@
               </div>
             {% endfor %}
           </div>
+
+          {% if page.has_other_pages %}
+            <nav class="pagination is-centered">
+              {% if page.has_previous %}
+                <a href="?page={{ page.previous_page_number }}" class="pagination-previous">Previous</a>
+              {% else %}
+                <span class="pagination-previous" disabled>Previous</span>
+              {% endif %}
+
+              {% if page.has_next %}
+                <a href="?page={{ page.next_page_number }}" class="pagination-next">Next</a>
+              {% else %}
+                <span class="pagination-next" disabled>Next</span>
+              {% endif %}
+
+              <ul class="pagination-list">
+                {% for i in page|pagination_page_numbers %}
+                  {% if i == page.number %}
+                    <li><span class="pagination-link is-current">{{ i }}</span></li>
+                  {% else %}
+                    <li><a href="?page={{ i }}" class="pagination-link">{{ i }}</a></li>
+                  {% endif %}
+                {% endfor %}
+              </ul>
+            </nav>
+          {% endif %}
         </div>
       </div>
     </section>

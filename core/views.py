@@ -1,6 +1,7 @@
 import json
 
 from django.contrib import messages
+from django.core.paginator import Paginator
 from django.db import IntegrityError
 from django.db.models import F
 from django.http import HttpResponseNotAllowed, JsonResponse
@@ -58,7 +59,10 @@ def home(request):
 
     urls = urls.exclude(is_active=False).order_by("-created_at")
 
-    return render(request, "core/home.html", {"form": form, "urls": urls})
+    paginator = Paginator(urls, 5)
+    page = paginator.get_page(request.GET.get("page"))
+
+    return render(request, "core/home.html", {"form": form, "page": page})
 
 
 def forward(request, name):
@@ -140,4 +144,5 @@ def modify(request, pk):
     elif request.method == "DELETE":
         url.is_active = False
         url.save()
+        messages.success(request, "URL has been deleted.")
         return JsonResponse({}, status=200)

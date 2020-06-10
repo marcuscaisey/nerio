@@ -22,21 +22,6 @@ class UrlsBox {
   }
 
   /**
-   * Return whether the urls box is empty or not.
-   * @returns true or false.
-   */
-  isEmpty() {
-    return this._box.childElementCount === 0;
-  }
-
-  /**
-   * Remove the urls box from the DOM.
-   */
-  remove() {
-    this._box.remove();
-  }
-
-  /**
    * Copy the the url associated with the clicked copy button to the clipboard.
    * @param event The click event.
    * @private
@@ -92,7 +77,6 @@ class UrlRow {
    */
   constructor(div) {
     this._url = div.querySelector(".url");
-    this._container = div.parentNode;
     this.dataset = div.dataset;
   }
 
@@ -116,13 +100,6 @@ class UrlRow {
     this._url.textContent = value;
     this._url.href = value;
     this.dataset.url = value;
-  }
-
-  /**
-   * Remove this url row from the DOM.
-   */
-  remove() {
-    this._container.remove();
   }
 }
 
@@ -289,7 +266,6 @@ class DeleteModal extends Modal {
    */
   constructor(urlsBox) {
     super("delete-modal");
-    this._urlsBox = urlsBox;
     this._urlRow = null;
 
     this._confirmButton.addEventListener("click", this._confirmHandler.bind(this));
@@ -335,11 +311,7 @@ class DeleteModal extends Modal {
       displayNotice(json.error, "is-danger");
 
     } else {
-      this._urlRow.remove();
-      if (this._urlsBox.isEmpty()) {
-        this._urlsBox.remove();
-      }
-      displayNotice("URL has been deleted.", "is-success");
+      location.reload();
     }
 
     this.close();
