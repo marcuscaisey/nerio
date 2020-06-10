@@ -15,17 +15,26 @@ from .models import URL
 def home(request):
     """
     GET
-        Render the home template with an empty url creation form and either the
-        currently logged in user's urls or the urls stored in the current
-        session.
+        Display the URLCreationForm and a list of urls.
+
+        Context:
+            - form: An unbound URLCreationForm instance.
+            - page: A Page from the url Paginator.
+
+        Parameters:
+            - page: The page number to display.
 
     POST
-        Process the form data from a submitted url creation form. If the form is
-        valid, redirect back to the home view. If not, then process the request
-        as if it was a GET, replacing the empty url creation form with the
-        current invalid form. If a form is valid but then fails to save (two
-        users save urls with the same name), return the form with errors as if
-        it had been invalid to begin with.
+        Process the form data from a submitted URLCreationForm.
+
+        If the data is valid:
+            - Create a URL, either storing the ID in the user's session or
+              assigning the URL to them depending on whether they are logged in
+              or not.
+            - Redirect to the home view.
+            - Add a success message.
+
+        If not, redisplay the form with errors.
     """
     if request.method == "POST":
         form = URLCreationForm(request.POST)
@@ -80,35 +89,44 @@ def forward(request, name):
 def modify(request, pk):
     """
     Endpoint to allow renaming and deleting of a user's urls. Valid methods are
-    PATCH and DELETE.
-
-    For all errors apart from 405 Method Not Allowed, the response will be as
-    follows:
-    {
-        "error": "message describing error"
-    }
-
-    For both PATCH and DELETE methods, return a 404 if the requested url doesn't
-    exist and 403 if the requesting user doesn't own the requested url.
+    PATCH and DELETE. A 405 Method Not Allowed will be returned if an invalid
+    method is used. All other responses will be in JSON.
 
     PATCH
-        Rename a user's url with the following request body:
-        {
-            "name": "new name for url"
-        }
+        Rename a user's url.
 
-        If successful, the response will be as follows:
-        {
-            "name" "new name for url",
-            "url": "new shortened url in absolute form",
-        }
+        Request:
+            {
+                "name": "new name for url"
+            }
 
-        If an error occurs when saving the new name, the error message will be
-        returned instead.
+        Response:
+            Success:
+                {
+                    "name" "new name for url",
+                    "url": "new shortened url in absolute form",
+                }
+
+            Error:
+                {
+                    "error": "message describing error"
+                }
 
     DELETE
-        Delete a user's url. There is no request body required and no body in
-        the response if the deletion is successful.
+        Delete a user's url.
+
+        Request:
+            {}
+
+        Response:
+            Success:
+                {}
+                As well as the response, a message will be added.
+
+            Error:
+                {
+                    "error": "message describing error"
+                }
     """
     allowed_methods = ("PATCH", "DELETE")
     if request.method not in allowed_methods:
