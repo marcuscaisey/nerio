@@ -20,26 +20,28 @@
   <section class="section container">
     <div class="columns is-centered">
       <div class="column is-8-fullhd is-9-widescreen is-10-desktop is-11-tablet">
-        <form class="mb-4" method="get">
-          <div class="field has-addons">
-            <div class="control is-expanded">
-              <input tabindex="3" type="text" name="search" class="input" value="{{ search_term }}"
-                     placeholder="Search for a URL" required>
+        {% if search_term or page.object_list %}
+          <form class="mb-4" method="get">
+            <div class="field has-addons">
+              <div class="control is-expanded">
+                <input tabindex="3" type="text" name="search" class="input" value="{{ search_term }}"
+                       placeholder="Search for a URL" required>
+              </div>
+              <div class="control">
+                <button type="submit" class="button is-primary is-hidden-mobile">Search</button>
+                <button type="submit" class="button is-primary is-hidden-tablet">
+                  <span class="icon"><i class="fas fa-search"></i></span>
+                </button>
+              </div>
+              <div class="control">
+                <a href="/" class="button is-danger is-hidden-mobile">Reset</a>
+                <a href="/" class="button is-danger is-hidden-tablet">
+                  <span class="icon"><i class="fas fa-times"></i></span>
+                </a>
+              </div>
             </div>
-            <div class="control">
-              <button type="submit" class="button is-primary is-hidden-mobile">Search</button>
-              <button type="submit" class="button is-primary is-hidden-tablet">
-                <span class="icon"><i class="fas fa-search"></i></span>
-              </button>
-            </div>
-            <div class="control">
-              <a href="/" class="button is-danger is-hidden-mobile">Reset</a>
-              <a href="/" class="button is-danger is-hidden-tablet">
-                <span class="icon"><i class="fas fa-times"></i></span>
-              </a>
-            </div>
-          </div>
-        </form>
+          </form>
+        {% endif %}
 
         {% if page.object_list %}
           <div id="urls" class="box">
