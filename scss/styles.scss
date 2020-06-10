@@ -62,7 +62,7 @@ $link-focus-border: $link;
 
 .url-container {
   @include truncate;
-  @include mobile {
+  @include tablet {
     margin-bottom: 0.5rem;
   }
   color: $link;
@@ -78,10 +78,12 @@ $link-focus-border: $link;
   flex-direction: column;
   justify-content: space-between;
   margin-left: 1rem;
-  min-width: 120px;
 
-  > button {
-    pointer-events: none;
+  @include tablet {
+    min-width: 120px;
+    > button {
+      pointer-events: none;
+    }
   }
 }
 

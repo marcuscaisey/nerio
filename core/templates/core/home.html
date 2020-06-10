@@ -5,6 +5,7 @@
 
 {% block scripts %}
   <script src="{% static "js/home.js" %}" defer></script>
+  <script src="https://kit.fontawesome.com/d80f1c7f41.js" crossorigin="anonymous"></script>
 {% endblock %}
 
 {% block hero-title %}
@@ -26,10 +27,16 @@
                      placeholder="Search for a URL" required>
             </div>
             <div class="control">
-              <input type="submit" class="button is-primary" value="Search">
+              <button type="submit" class="button is-primary is-hidden-mobile">Search</button>
+              <button type="submit" class="button is-primary is-hidden-tablet">
+                <span class="icon"><i class="fas fa-search"></i></span>
+              </button>
             </div>
             <div class="control">
-              <a href="/" class="button is-danger">Reset</a>
+              <a href="/" class="button is-danger is-hidden-mobile">Reset</a>
+              <a href="/" class="button is-danger is-hidden-tablet">
+                <span class="icon"><i class="fas fa-times"></i></span>
+              </a>
             </div>
           </div>
         </form>
@@ -58,7 +65,7 @@
                           </a>
                         </strong>
                       </div>
-                      <div class="url-buttons">
+                      <div class="url-buttons is-hidden-mobile">
                         <button class="button copy-button is-small is-primary is-outlined">Copy</button>
                         <button class="button rename-button is-small is-info is-outlined">Rename</button>
                         <button class="button delete-button is-small is-danger is-outlined">Delete</button>
@@ -66,11 +73,17 @@
                     </div>
                   </div>
 
-                  <div class="date-visits-container is-hidden-mobile">
-                    <button class="button is-small is-outlined">{{ url.created_at|date:"N j, Y" }}</button>
-                    <button class="button is-small is-outlined">
+                  <div class="date-visits-container">
+                    <button class="button is-small is-outlined is-hidden-mobile">
+                      {{ url.created_at|date:"N j, Y" }}
+                    </button>
+                    <button class="button is-small is-outlined is-hidden-mobile">
                       <span>Visits <strong>{{ url.visits }}</strong></span>
                     </button>
+
+                    <a class="icon has-text-primary is-hidden-tablet"><i class="fas fa-clipboard copy-button"></i></a>
+                    <a class="icon has-text-info is-hidden-tablet"><i class="fas fa-edit rename-button"></i></a>
+                    <a class="icon has-text-danger is-hidden-tablet"><i class="fas fa-trash delete-button"></i></a>
                   </div>
                 </div>
               </div>
