@@ -7,14 +7,14 @@ class UrlsBox {
   _box = document.querySelector("#urls");
 
   /**
-   * @param RenameModal The class of the rename modal to be opened when a
-   * rename button is clicked.
-   * @param DeleteModal The class of the delete modal to be opened when a
-   * delete button is clicked.
+   * @param {function} RenameModal - The class of the rename modal to be opened
+   * when a rename button is clicked.
+   * @param {function} DeleteModal - The class of the delete modal to be
+   * opened when a delete button is clicked.
    */
   constructor(RenameModal, DeleteModal) {
     this._renameModal = new RenameModal();
-    this._deleteModal = new DeleteModal(this);
+    this._deleteModal = new DeleteModal();
 
     this._box.addEventListener("click", this._copyHandler);
     this._box.addEventListener("click", this._renameHandler.bind(this));
@@ -23,7 +23,7 @@ class UrlsBox {
 
   /**
    * Copy the the url associated with the clicked copy button to the clipboard.
-   * @param event The click event.
+   * @param {MouseEvent} event - The click event.
    * @private
    */
   async _copyHandler(event) {
@@ -44,7 +44,7 @@ class UrlsBox {
 
   /**
    * Open the rename modal.
-   * @param event The click event.
+   * @param {MouseEvent} event - The click event.
    * @private
    */
   _renameHandler(event) {
@@ -56,7 +56,7 @@ class UrlsBox {
 
   /**
    * Open the delete modal.
-   * @param event The click event.
+   * @param {MouseEvent} event - The click event.
    * @private
    */
   _deleteHandler(event) {
@@ -73,7 +73,7 @@ class UrlsBox {
  */
 class UrlRow {
   /**
-   * @param div The url-row div.
+   * @param {HTMLElement} div - The url-row div.
    */
   constructor(div) {
     this._url = div.querySelector(".url");
@@ -82,8 +82,8 @@ class UrlRow {
 
   /**
    * Instantiate a url row from one of its child elements.
-   * @param child A child element of the url row.
-   * @returns A UrlRow object.
+   * @param {HTMLElement} child - A child element of the url row.
+   * @returns {UrlRow} A UrlRow object.
    */
   static fromChild(child) {
     let current = child;
@@ -95,6 +95,7 @@ class UrlRow {
 
   /**
    * Set the url associated with this row.
+   * @param {string} value
    */
   set url(value) {
     this._url.textContent = value;
@@ -109,7 +110,7 @@ class UrlRow {
  */
 class Modal {
   /**
-   * @param id The ID of the modal div element.
+   * @param {string} id - The ID of the modal div element.
    */
   constructor(id) {
     this._div = document.getElementById(id);
@@ -123,7 +124,7 @@ class Modal {
 
   /**
    * Close the modal when the escape key is pressed.
-   * @param event Keydown event.
+   * @param {KeyboardEvent} event - Keydown event.
    * @private
    */
   _escapeHandler(event) {
@@ -133,8 +134,8 @@ class Modal {
   }
 
   /**
-   * Return whether the modal is open or not.
-   * @returns true or false.
+   * Whether the modal is open or not.
+   * @returns {boolean} true or false.
    */
   get isOpen() {
     return this._div.classList.contains("is-active");
@@ -176,7 +177,7 @@ class RenameModal extends Modal {
   /**
    * Open the modal and associate it with the url row who's rename button was
    * clicked.
-   * @param urlRow Row which contains the clicked rename button.
+   * @param {UrlRow} urlRow - Row which contains the clicked rename button.
    */
   open(urlRow) {
     this._urlRow = urlRow;
@@ -225,7 +226,7 @@ class RenameModal extends Modal {
 
   /**
    * Submit the new url name if enter is pressed.
-   * @param event Keydown event.
+   * @param {KeyboardEvent} event - Keydown event.
    * @private
    */
   _enterHandler(event) {
@@ -236,6 +237,8 @@ class RenameModal extends Modal {
 
   /**
    * Set the error message.
+   * @param {string} value
+   * @private
    */
   set _error(value) {
     this._help.textContent = value;
@@ -261,10 +264,7 @@ class DeleteModal extends Modal {
   _cancelButton = document.querySelector("#delete-cancel-button");
   _url = document.querySelector("#delete-url");
 
-  /**
-   * @param urlsBox The urls box associated with the modal.
-   */
-  constructor(urlsBox) {
+  constructor() {
     super("delete-modal");
     this._urlRow = null;
 
@@ -276,7 +276,7 @@ class DeleteModal extends Modal {
   /**
    * Open the modal and associate it with the url row who's delete button was
    * clicked.
-   * @param urlRow Row which contains the clicked delete button.
+   * @param {UrlRow} urlRow - Row which contains the clicked delete button.
    */
   open(urlRow) {
     this._urlRow = urlRow;
@@ -319,7 +319,7 @@ class DeleteModal extends Modal {
 
   /**
    * Delete the url if enter is pressed.
-   * @param event Keydown event.
+   * @param {KeyboardEvent} event - Keydown event.
    * @private
    */
   _enterHandler(event) {
@@ -331,7 +331,7 @@ class DeleteModal extends Modal {
 
 /**
  * Return the value of the user's csrf token cookie.
- * @returns A csrf token.
+ * @returns {string} A csrf token.
  */
 function csrfToken() {
   const cookies = document.cookie.split(";");

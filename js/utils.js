@@ -1,7 +1,8 @@
 /**
  * Display a notice by fading it in and then out after some time.
- * @param message The message to display.
- * @param extraClasses Extra classes to add to the notice div.
+ * @param {string} message - The message to display.
+ * @param {...string} extraClasses - Extra classes to add to the notice div.
+ * @returns {Promise<void>} A promise which resolves when then notice has faded.
  */
 async function displayNotice(message, ...extraClasses) {
   const notice = createNotice(message, ...extraClasses);
@@ -18,8 +19,8 @@ async function displayNotice(message, ...extraClasses) {
 /**
  * Create a new notice.
  * @param {string} message - The message to display.
- * @param {string} extraClasses - Extra classes to add to the notice div.
- * @returns {HTMLDivElement} - A new notice element.
+ * @param {...string} extraClasses - Extra classes to add to the notice div.
+ * @returns {HTMLDivElement} A new notice element.
  */
 function createNotice(message, ...extraClasses) {
   const notice = document.createElement("div");
@@ -35,10 +36,12 @@ function createNotice(message, ...extraClasses) {
 
 /**
  * Fade a DOM element in or out.
- * @param element The element to fade.
- * @param duration The number of ms the fade should take.
- * @param direction The direction of the fade: 1 for fade in, -1 for fade out.
- * @returns A Promise which resolves once the element has finished fading.
+ * @param {Element} element - The element to fade.
+ * @param {number} duration - The number of ms the fade should take.
+ * @param {number} direction - The direction of the fade: 1 for fade in, -1 for
+ * fade out.
+ * @returns {Promise<void>} A Promise which resolves once the element has
+ * finished fading.
  */
 function fade(element, duration, direction) {
   return new Promise(resolve => {
@@ -62,9 +65,9 @@ function fade(element, duration, direction) {
 
 /**
  * Fade a DOM element in.
- * @param element The element to fade.
- * @param duration The number of ms the fade should take.
- * @returns A Promise which resolves once the element has finished fading.
+ * @param {Element} element - The element to fade.
+ * @param {number} duration - The number of ms the fade should take.
+ * @returns {Promise<void>} A Promise which resolves once the element has
  */
 function fadeIn(element, duration) {
   return fade(element, duration, 1);
@@ -72,9 +75,10 @@ function fadeIn(element, duration) {
 
 /**
  * Fade a DOM element in.
- * @param element The element to fade.
- * @param duration The number of ms the fade should take.
- * @returns A Promise which resolves once the element has finished fading.
+ * @param {Element} element - The element to fade.
+ * @param {number} duration - The number of ms the fade should take.
+ * @returns {Promise<void>} A Promise which resolves once the element has
+ * finished fading.
  */
 function fadeOut(element, duration) {
   return fade(element, duration, -1);
@@ -82,8 +86,8 @@ function fadeOut(element, duration) {
 
 /**
  * Sleep for some time.
- * @param duration Number of milliseconds to sleep for.
- * @returns A Promise which resolves once the sleeping is done.
+ * @param {number} duration - Number of milliseconds to sleep for.
+ * @returns {Promise<void>} A Promise which resolves once the sleeping is done.
  */
 function sleep(duration) {
   return new Promise(resolve => setTimeout(resolve, duration));
