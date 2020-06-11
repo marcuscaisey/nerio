@@ -9,7 +9,22 @@ $primary: $purple;
 $link: $primary;
 $link-focus-border: $link;
 
+$footer-padding: 3rem 1.5rem 3rem;
+
 @import "../node_modules/bulma/bulma.sass";
+
+html, body {
+  height: 100%;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+footer.footer {
+  margin-top: auto;
+}
 
 #home-hero {
   position: relative;
