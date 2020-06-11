@@ -72,10 +72,11 @@ class PasswordChangeView(SuccessMessageMixin, auth_views.PasswordChangeView):
 
 class PasswordResetView(SuccessMessageMixin, auth_views.PasswordResetView):
     template_name = "users/password_reset.html"
-    email_template_name = "users/password_reset_email.html"
+    email_template_name = "users/password_reset_text_email.html"
+    html_email_template_name = "users/password_reset_html_email.html"
     subject_template_name = "users/password_reset_subject.txt"
     success_url = reverse_lazy("core:home")
-    success_message = "An email has been sent to you with instructions on how to reset your password."
+    success_message = "An email has been sent to you with a link to reset your password."
 
 
 class PasswordResetConfirmView(SuccessMessageMixin, auth_views.PasswordResetConfirmView):
