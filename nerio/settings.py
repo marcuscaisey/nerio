@@ -83,6 +83,8 @@ STATICFILES_DIRS = [
     root("static"),
 ]
 
+STATIC_ROOT = root("static")
+
 AUTH_USER_MODEL = "users.User"
 
 AUTHENTICATION_BACKENDS = [
