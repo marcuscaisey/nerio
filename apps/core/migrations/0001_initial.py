@@ -3,7 +3,7 @@
 import django.utils.timezone
 from django.db import migrations, models
 
-import core.validators
+import apps.core.validators
 
 
 class Migration(migrations.Migration):
@@ -28,8 +28,8 @@ class Migration(migrations.Migration):
                         help_text="This will be randomly generated, if left empty.",
                         max_length=120,
                         validators=[
-                            core.validators.URLNameCharacterValidator(),
-                            core.validators.validate_url_name_doesnt_clash,
+                            apps.core.validators.URLNameCharacterValidator(),
+                            apps.core.validators.validate_url_name_doesnt_clash,
                         ],
                     ),
                 ),

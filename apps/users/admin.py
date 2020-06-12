@@ -1,8 +1,9 @@
 from django.contrib.admin import ModelAdmin, TabularInline, register
+from django.contrib.auth import get_user_model
 
-from core.models import URL
+from ..core.models import URL
 
-from .models import User
+User = get_user_model()
 
 
 class URLInline(TabularInline):

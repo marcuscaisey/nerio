@@ -6,8 +6,8 @@ from django.db import IntegrityError
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, UpdateView
 
-from core.models import URL
-from users.forms import AuthenticationForm, UserCreationForm
+from ..core.models import URL
+from .forms import AuthenticationForm, UserCreationForm
 
 
 class ModelFormIntegrityMixin:

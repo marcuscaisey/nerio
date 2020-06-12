@@ -39,8 +39,8 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "users.apps.UsersConfig",
-    "core.apps.CoreConfig",
+    "apps.users.apps.UsersConfig",
+    "apps.core.apps.CoreConfig",
     "widget_tweaks",
 ]
 
@@ -123,7 +123,7 @@ STATICFILES_DIRS = [
 
 AUTH_USER_MODEL = "users.User"
 AUTHENTICATION_BACKENDS = [
-    "users.backends.ModelBackend",
+    "apps.users.backends.ModelBackend",
 ]
 
 LOGIN_URL = "users:login"
