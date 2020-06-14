@@ -5,3 +5,4 @@ Users can create shortened URLs with custom names which they can then rename/del
 
 ## Prerequisites
 - Python version >= 3.8.2
+- Install the Python dependencies with `pip install -r requirements/main.txt`
