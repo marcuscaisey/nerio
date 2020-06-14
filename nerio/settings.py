@@ -83,7 +83,7 @@ STATICFILES_DIRS = [
     root("static"),
 ]
 
-STATIC_ROOT = env("STATIC_ROOT", default=None)
+STATIC_ROOT = env("STATIC_ROOT", default=root("staticfiles"))
 
 AUTH_USER_MODEL = "users.User"
 
