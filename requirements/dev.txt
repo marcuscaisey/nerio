@@ -25,6 +25,7 @@ django-widget-tweaks==1.4.8  # via -r main.txt
 django==3.0.5             # via -r main.txt
 entrypoints==0.3          # via flake8, nbconvert
 flake8==3.7.9             # via -r dev.in
+gunicorn==20.0.4          # via -r main.txt
 idna==2.9                 # via -r main.txt, requests
 ipykernel==5.2.1          # via ipywidgets, jupyter, jupyter-console, notebook, qtconsole
 ipython-genutils==0.2.0   # via jupytemplate, jupyter-contrib-nbextensions, nbformat, notebook, qtconsole, traitlets
