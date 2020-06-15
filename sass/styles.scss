@@ -33,14 +33,14 @@ html, body {
 body {
   display: flex;
   flex-direction: column;
-
-  > * {
-    width: 100% !important;
-  }
 }
 
-footer.footer {
-  margin-top: auto;
+#content {
+  flex: 1 0 auto;
+}
+
+#footer {
+  flex-shrink: 0;
 }
 
 #home-hero {
