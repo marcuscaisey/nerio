@@ -19,11 +19,14 @@ $footer-padding: 3rem 1.5rem 3rem;
   font-family: "Noto Sans TC", sans-serif;
 }
 
-.brand {
+a.brand {
   @extend .brand-font;
   line-height: 0;
   color: $black;
   font-size: 2rem;
+  &:hover {
+    color: $black;
+  }
 }
 
 html, body {
