@@ -13,6 +13,19 @@ $footer-padding: 3rem 1.5rem 3rem;
 
 @import "../node_modules/bulma/bulma.sass";
 
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@700&display=swap");
+
+.brand-font {
+  font-family: "Noto Sans TC", sans-serif;
+}
+
+.brand {
+  @extend .brand-font;
+  line-height: 0;
+  color: $black;
+  font-size: 2rem;
+}
+
 html, body {
   height: 100%;
 }
