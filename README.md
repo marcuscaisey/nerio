@@ -20,6 +20,5 @@ The following environment variables are available for configuration of the Djang
 | `STATIC_ROOT` | no | `staticfiles` | The absolute path to the directory where `collectstatic` will collect static files for deployment. |
 | `CSRF_COOKIE_SECURE` | no | `off` | Whether to use a secure cookie for the CSRF cookie. Possible true values: `true`, `on`, `ok`, `y`, `yes`, `1`. |
 | `SESSION_COOKIE_SECURE` | no | `off` | Whether to use a secure cookie for the session. Possible true values: `true`, `on`, `ok`, `y`, `yes`, `1`. |
-| `SECURE_REFERRER_POLICY` | no | `no-referrer` | The referrer policy header to set on responses. Possible values: `no-referrer`, `no-referrer-when-downgrade`, `origin`, `origin-when-cross-origin`, `same-origin`, `strict-origin`, `strict-origin-when-cross-origin`, `unsafe-url`, `""`. |
 
 *These variables can also be set in a `.env` file in the root of the project.*

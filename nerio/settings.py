@@ -111,7 +111,3 @@ vars().update(EMAIL_CONFIG)
 CSRF_COOKIE_SECURE = env.bool("CSRF_COOKIE_SECURE", default=False)
 
 SESSION_COOKIE_SECURE = env.bool("SESSION_COOKIE_SECURE", default=False)
-
-SECURE_REFERRER_POLICY = env.bool("SECURE_REFERRER_POLICY", default="no-referrer")
-if SECURE_REFERRER_POLICY == "":
-    SECURE_REFERRER_POLICY = None
