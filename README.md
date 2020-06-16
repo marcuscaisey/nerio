@@ -22,3 +22,22 @@ The following environment variables are available for configuration of the Djang
 | `SESSION_COOKIE_SECURE` | no | `on` | Whether to use a secure cookie for the session. Possible true values: `true`, `on`, `ok`, `y`, `yes`, `1`. |
 
 *These variables can also be set in a `.env` file in the root of the project.*
+
+## Deployment
+
+Nerio is deployed using [Traefik](https://docs.traefik.io/) as a reverse proxy which sits in front of two [Docker](https://www.docker.com/) containers. One which runs [Gunicorn](https://gunicorn.org/) to serve the dynamic content and another which serves the static content with [nginx](https://www.nginx.com/). Traefik handles the registration/renewal of SSL certificates through [Let's Encrypt](https://letsencrypt.org/). The environment variable `EMAIL` needs to be set for registration. 
+
+### Steps
+
+1. Install [Docker](https://www.docker.com/) and [Docker Compose](https://docs.docker.com/compose/).
+2. Run the following commands to apply the database migrations and collect the static assets.
+```bash
+docker-compose run nerio python manage.py migrate
+docker-compose run nerio python manage.py collectstatic
+```
+3. Create and start the containers.
+```bash
+docker-compose up -d
+```
+
+_**Note:**_ Any environment variables to be passed to the containers should be set in an `.env` file in the root of the project.
