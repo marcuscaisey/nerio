@@ -1,5 +1,5 @@
 # Nerio
-**Nerio is a simple URL shortener built with Django.** 
+**Nerio is a simple URL shortener built as my first project using Django.** 
 
 Users can create shortened URLs with custom names which they can then rename/delete. A user's shortened URLs will be stored in their session, however they can create an account to store their URLs permanently.
 
