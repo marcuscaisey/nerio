@@ -17,6 +17,7 @@ class User(auth_models.AbstractUser):
     email = models.EmailField(
         "email address", unique=True, error_messages={"unique": "A user with that email already exists."}
     )
+    username = models.CharField(max_length=150)
 
     objects = UserManager()
 
