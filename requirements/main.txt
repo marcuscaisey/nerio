@@ -4,20 +4,34 @@
 #
 #    pip-compile --output-file=main.txt main.in
 #
-asgiref==3.2.7            # via django
-beautifulsoup4==4.9.0     # via -r main.in
-certifi==2020.4.5.1       # via requests
-chardet==3.0.4            # via requests
-django-environ==0.4.5     # via -r main.in
-django-widget-tweaks==1.4.8  # via -r main.in
-django==3.0.7             # via -r main.in
-gunicorn==20.0.4          # via -r main.in
-idna==2.9                 # via requests
-pytz==2019.3              # via django
-requests==2.23.0          # via -r main.in
-soupsieve==2.0            # via beautifulsoup4
-sqlparse==0.3.1           # via django
-urllib3==1.25.9           # via requests
+asgiref==3.2.7
+    # via django
+beautifulsoup4==4.9.0
+    # via -r main.in
+certifi==2020.4.5.1
+    # via requests
+chardet==3.0.4
+    # via requests
+django-environ==0.4.5
+    # via -r main.in
+django-widget-tweaks==1.4.8
+    # via -r main.in
+django==3.0.12
+    # via -r main.in
+gunicorn==20.0.4
+    # via -r main.in
+idna==2.9
+    # via requests
+pytz==2019.3
+    # via django
+requests==2.23.0
+    # via -r main.in
+soupsieve==2.0
+    # via beautifulsoup4
+sqlparse==0.3.1
+    # via django
+urllib3==1.25.9
+    # via requests
 
 # The following packages are considered to be unsafe in a requirements file:
 # setuptools
